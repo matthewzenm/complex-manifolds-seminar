@@ -1,0 +1,107 @@
+\chapter{Complex Manifolds}
+
+In this chapter we introduce the elements of several complex variables and the notion of complex manifolds.
+We also provide some examples of complex ma\-nifolds.
+
+\section{Holomorphic maps}
+
+\begin{defn}
+    A complex valued function $f(z)$ on a connected open subset $W\subset\mathbb{C}^n$ is called \emph{holomorphic}, if for each $a=(a_1,\cdots,a_n)\in W$, $f(z)$ can be expanded as a convergent power series
+    \[f(z)=\sum_{k_1\geq 0,\cdots,k_n\geq 0}c_{k_1\cdots k_n}(z_1-a_1)^{k_1}\cdots(z_n-a_n)^{k_n}\]
+    in some neighborhood of $a$.
+\end{defn}
+
+From now on we shall use \emph{domain} to denote a connected open set.
+
+\begin{prop}
+    If $p(z)=\sum c_{k_1\cdots k_n}(z_1-a_1)^{k_1}\cdots(z_n-a_n)^{k_n}$ converges at $z=w$, then $p(z)$ converges for every $z$ with $|z_k-a_k|<|w_k-a_k|,\ k=1,\cdots,n$.
+\end{prop}
+\begin{proof}
+    Trivial.
+\end{proof}
+
+\begin{defn}
+    The neighborhood above is called a \emph{polydisc} or \emph{polycylinder}, and denoted by $P(a,r)=\{z\in\mathbb{C}^n:\ |z-a|<r\}$.
+\end{defn}
+
+A complex valued function of $n$ complex variables can be seen as a function of $2n$ real variables, thus we have the following definition.
+\begin{defn}
+    A complex valued function of $n$ complex variables is \emph{continuous} or \emph{differentiable}, if it is continuous or differentiable as a function of $2n$ real variables.
+\end{defn}
+
+We have
+
+\begin{thm}[Osgood]\label{osgood}
+    Let $f(z_1,\cdots,z_n)$ be a continuous function on the domain $W\subset\mathbb{C}^n$, if $f$ is holomorphic with respected to each $z_k$ and other $z_i$'s fixed, then $f$ is holomorphic on $W$.
+\end{thm}
+\begin{proof}
+    Let $a\in W$ lies in the polydisc $\overline{P(a,r)}\subset W$, we use Cauchy's integral formula iteratively:
+    \begin{gather*}
+        f(z_1,z_2,\cdots,z_n)=\frac{1}{2\pi\sqrt{-1}}\int_{|z_1-a_1|=r_1}\frac{f(w_1,z_2,\cdots,z_n)}{w_1-z_1}\d{w_1}\\
+        f(w_1,z_2,\cdots,z_n)=\frac{1}{2\pi\sqrt{-1}}\int_{|z_2-a_2|=r_2}\frac{f(w_1,w_2,\cdots,z_n)}{w_2-z_2}\d{w_2}\\
+        \cdots
+    \end{gather*}
+    Substituting, we have
+    \[\left(\frac{1}{2\pi\sqrt{-1}}\right)^n\idotsint_{\partial P(a,r)}\frac{f(w_1,\cdots,w_n)}{(w_1-z_1)\cdots(w_n-z_n)}\d{w_1}\cdots\d{w_n}\]
+    Since
+    \[\left|\frac{z_k-a_k}{w_k-a_k}\right|<1\]
+    The series
+    \begin{align*}
+        \frac{1}{w_k-z_k}&=\frac{1}{(w_k-a_k)-(z_k-a_k)}=\frac{1}{w_k-a_k}\cdot\frac{1}{1-(z_k-a_k)/(w_k-a_k)}\\
+        &=\frac{1}{w_k-a_k}\sum_{i=0}^\infty\left(\frac{z_k-a_k}{w_k-a_k}\right)^i
+    \end{align*}
+    converges absolutely in $P(a,r)$, hence integrate term by term we have
+    \[f(z_1,\cdots,z_n)=\sum_{k_0\geq 0,\cdots,k_n\geq 0}c_{k_1\cdots k_n}(z_1-a_1)^{k_1}\cdots(z_n-a_n)^{k_n}\]
+    where
+    \[c_{k_1\cdots k_n}=\left(\frac{1}{2\pi\sqrt{-1}}\right)^{k_1+\cdots+k_n}\idotsint_{\partial P(a,r)}\frac{f(w_1,\cdots,w_n)\d{w_1}\cdots\d{w_n}}{(w_1-a_1)^{k_1+1}\cdots(w_n-a_n)^{k_n+1}}\]
+    Let $|f|\leq M$ on $\overline{P(a,r)}$, then we have
+    \[|c_{k_0\cdots k_n}|\leq\frac{M}{r_1^{k_1}\cdots r_n^{k_n}}\]
+    and for $z\in P(a,r)$, we have $|(z_k-a_k)/r_k|<1$, then
+    \begin{align*}
+        \left|\sum c_{k_1\cdots k_n}(z_1-a_1)^{k_1}\cdots(z_n-a_n)^{k_n}\right|&\leq M\left|\sum\left(\frac{z_1-a_1}{r_1}\right)^{k_1}\cdots\left(\frac{z_n-a_n}{r_n}\right)^{k_n}\right|\\
+        &=M\prod_{k=1}^n\left|\frac{1}{1-(z_k-a_k)/r_k}\right|
+    \end{align*}
+    This shows the expansion is convergent for $z\in P(a,r)$.
+    Since $a$ is arbitrary, $f$ is holomorphic.
+\end{proof}
+
+We now introduce the Cauchy--Riemann equations.
+
+\begin{sym}
+    Let $f$ be a differentiable function on a domain $W\subset\mathbb{C}^n$, denote
+    \begin{gather}
+        \frac{\partial}{\partial z_k}=\frac{1}{2}\left(\frac{\partial}{\partial x_k}-\sqrt{-1}\frac{\partial}{\partial y_k}\right)\\
+        \frac{\partial}{\partial\overline{z_k}}=\frac{1}{2}\left(\frac{\partial}{\partial x_k}+\sqrt{-1}\frac{\partial}{\partial y_k}\right)
+    \end{gather}
+    for $z_k=x_k+\sqrt{-1}y_k$ and $1\leq k\leq n$.
+\end{sym}
+
+\begin{thm}
+    Let $f$ be a (continuously) differentiable function on the domain $W\subset\mathbb{C}^n$, then $f$ is holomorphic on $W$ if and only if $\partial{f}/\partial{\overline{z_k}}=0$ for $k=1,\cdots,n$.
+\end{thm}
+\begin{proof}
+    This is a corollary of Theorem~\ref{osgood} and classical results in complex analysis in one variable.
+\end{proof}
+
+\begin{prop}[Chain rule]
+    Suppose $f(w_1,\cdots,w_m)$ and $g_k(z),\ k=1,\cdots,m$ are differentiable, and the domain of $f$ contains the range of $g=(g_1,\cdots,g_m)$, then $f\circ g$ is differentiable, and if $w_m=g_m(z)$, then
+    \begin{gather*}
+        \frac{\partial f(g(z)))}{\partial z_k}=\sum_{i=1}^m\left(\frac{\partial f(w)}{\partial w_i}\cdot\frac{\partial w_i}{\partial z_k}+\frac{\partial f(w)}{\partial\overline{w_i}}\cdot\frac{\partial\overline{w_i}}{\partial z_k}\right)\\
+        \frac{\partial f(g(z)))}{\partial\overline{z_k}}=\sum_{i=1}^m\left(\frac{\partial f(w)}{\partial w_i}\cdot\frac{\partial w_i}{\partial\overline{z_k}}+\frac{\partial f(w)}{\partial\overline{w_i}}\cdot\frac{\partial\overline{w_i}}{\partial\overline{z_k}}\right)
+    \end{gather*}
+\end{prop}
+\begin{proof}
+    Direct calculation verifies the proposition.
+\end{proof}
+
+\begin{cor}
+    If $f(w)$ is holomorphic in $w=(w_1,\cdots,w_m)$ and $g_k(z),\ k=1,\cdots,m$ are holomorphic in $z$, then $f\circ g$ is holomorphic in $z$.
+\end{cor}
+
+\begin{cor}
+    The set $\Gamma(\Omega,\mathcal{O}_{\mathbb{C}^n})$ of holomorphic functions on open set $\Omega$ forms a ring. (We use sheaf notation before we introduce what is a sheaf.)
+\end{cor}
+
+\begin{defn}
+    A map $f(z)=(f_1(z),\cdots,f_m(z))$ from $\mathbb{C}^n$ to $\mathbb{C}^m$ is a \emph{holomorphic map} if each $f_k(z)$ is holomorphic, $k=1,\cdots,m$.
+\end{defn}

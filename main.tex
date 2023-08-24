@@ -1,0 +1,71 @@
+\documentclass[a4paper]{book}
+
+% \usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{times}
+\usepackage{mathptmx}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+\usepackage{fixdif}
+
+\bibliographystyle{alpha}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{eg}[defn]{Example}
+\newtheorem{cons}[defn]{Construction}
+\newtheorem{sym}[defn]{Notation}
+\theoremstyle{plain}
+\newtheorem{thm}[defn]{Theorem}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{cor}[defn]{Corollary}
+\newtheorem{lem}[defn]{Lemma}
+\theoremstyle{remark}
+\newtheorem{rem}[defn]{Remark}
+
+\title{A Note on Complex Manifolds}
+\author{Zeng Mengchen}
+\date{Last compile: \today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\frontmatter
+
+\tableofcontents
+\newpage
+\thispagestyle{empty}
+
+\chapter{Preface}
+
+This is a lecture note of a seminar on complex manifolds, by OM Society of School of Mathematical Scieces, Beijing Normal University.
+We mainly follow \textsc{Kodaira} and \textsc{Morrow}'s classic~\cite{Kodaira06}.
+We shall cover the part of complex manifolds, sheaf cohomology and geometry of complex manifolds.
+Deformation theory will be skipped.
+Numbering of sections will not follow the textbook, but for some important theorems we shall give the name or original numbering on the textbook.
+
+This note is unfinished and will update continuously, it will be post on GitHub.
+The repository name is \href{https://github.com/matthewzenm/complex-manifolds-seminar}{matthewzenm/complex-manifolds-seminar}.
+
+\begin{flushright}
+    Mengchen M.\ Zeng
+
+    Aug 24, 2023
+\end{flushright}
+
+\newpage
+\thispagestyle{empty}
+
+\mainmatter
+
+\input{manifolds.tex}
+
+\backmatter
+
+\bibliography{biblio}
+
+\end{document}
