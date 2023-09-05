@@ -4,8 +4,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{times}
-\usepackage{mathptmx}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage[shortlabels]{enumitem}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usepackage{float}
@@ -29,6 +30,10 @@
 
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\Bl}{Bl}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\preim}{preim}
 
 \tikzset{every picture/.style={line width=0.7pt}}
 
@@ -72,6 +77,7 @@ If you find some typos or grammar mistakes, please contact me so that I can fix 
 \mainmatter
 
 \input{manifolds.tex}
+\input{sheaves.tex}
 
 \backmatter
 

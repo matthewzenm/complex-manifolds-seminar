@@ -1,0 +1,234 @@
+\chapter{Sheaves and Cohomology}
+
+\section{Algebra Preliminaries}
+
+We first provide some necessary background material on algebra.
+All the rings in this chapter will be assumed to be commutative and with unit.
+
+\subsection*{Cochain Complex and Cohomology}
+
+\begin{defn}
+    A \emph{cochain complex} $C$ is a graded $R$-module $C=\bigoplus_{n\in\mathbb{N}}C^n$ with homomorphisms
+    \[0\to C^0\xrightarrow{\delta^0}C^1\xrightarrow{\delta^1}\cdots\xrightarrow{\delta^{n-1}}C^n\xrightarrow{\delta^n}\cdots\]
+    which satisfy $\delta^{n+1}\circ\delta^n=0$ for $n\geq 0$.
+    A cochain map between chain complex is a graded homomorphism $f:C\to D$ of degree $0$, making the following diagram commute:
+    \[\begin{tikzcd}
+        0 \ar[r] & C^0 \ar[d, "f_0"] \ar[r,"\delta^0"] & C^1 \ar[d, "f_1"] \ar[r,"\delta^1"] & \cdots \ar[r,"\delta^{n-1}"] & C^n \ar[d, "f_n"] \ar[r,"\delta^n"] & \cdots \\
+        0 \ar[r] & D^0 \ar[r,"d^0"] & D^1 \ar[r,"d^1"] & \cdots \ar[r, "d^{n-1}"] & D^n \ar[r, "d^n"] & \cdots
+    \end{tikzcd}\]
+\end{defn}
+
+\begin{defn}
+    The $i$th \emph{cohomology module} is defined by
+    \[H^i(C)=\frac{\ker\delta^i}{\im\delta^{i-1}}\]
+    and the cohomology module is defined by the graded module $H^\bullet(C)=\bigoplus_{n\in\mathbb{N}}H^n(C)$.
+    A cochain map $f:C\to D$ induces a graded homomorphism $f^*:H^\bullet(C)\to H^\bullet(D)$ of degree $0$, i.e.\ for each $f_i:C^i\to D^i$, $f_i$ induces a homomorphism $f^*_i:H^i(C)\to H^i(D)$.
+\end{defn}
+
+We are now going to proof the following theorem:
+\begin{thm}[Zig-zag lemma]
+    If the sequence of cochain complex
+    \[0\to C\xrightarrow{f} D\xrightarrow{g} E\to 0\]
+    is exact, then the long sequence of cohomology modules
+    \[\begin{tikzcd}
+        0 \ar[r] & H^0(C) \ar[r, "f_0^*"] & H^0(D) \ar[r, "g_0^*"] & H^0(E) \ar[dll, "\delta^*"] \\[3mm]
+        {} & H^1(C) \ar[r, "f_1^*"] & H^1(D) \ar[r, "g_1^*"] & H^1(E) \ar[dll, "\delta^*"] \\[3mm]
+        {} & \cdots & {} & {}
+    \end{tikzcd}\]
+    is exact.
+\end{thm}
+
+For this, we need the following lemmas.
+
+\begin{lem}\label{coho short exact}
+    Let $C$ be a cochain complex, the following sequence is exact for $n\geq 0$
+    \[0\to\ H^n(C)\to\coker(\delta^{n-1})\xrightarrow{\delta^n}\ker(\delta^{n+1})\to H^{n+1}(C)\to 0\]
+\end{lem}
+\begin{proof}
+    Clearly $\varphi^n:=\delta^n|_{\coker(\delta^{n-1})}$ is well-defined and $\ker(\varphi^n)=H^n(C),\coker(\varphi^n)=H^{n+1}(C)$.
+\end{proof}
+
+\begin{lem}[Snake lemma]
+    Consider the following commutative diagram with exact rows:
+    \[\begin{tikzcd}
+        {} & X \ar[r, "f"] \ar[d,"\alpha"] & Y \ar[r, "g"] \ar[d,"\beta"] & Z \ar[r] \ar[d,"\gamma"] & 0 \\
+        0 \ar[r] & U \ar[r, "f'"] & V \ar[r, "g'"] & W & {}
+    \end{tikzcd}\]
+    Then there exists a homomorphism $\delta:\ker(\gamma)\to\coker(\alpha)$ giving rise the following exact sequence
+    \[\ker(\alpha)\to\ker(\beta)\to\ker(\gamma)\xrightarrow{\delta}\coker(\alpha)\to\coker(\beta)\to\coker(\gamma)\]
+\end{lem}
+\begin{proof}
+    $\ker(\alpha)\to\ker(\beta)\to\ker(\gamma)$ is exact.
+    Let $y\in\ker(g|_{\ker(\beta)})$, then $g(y)=0$, there exists an $x\in X$ such that $f(x)=y$.
+    We must show $x\in\ker(\alpha)$.
+    We have $0=\beta(y)=\beta(f(x))=f'(\alpha(x))$, and since $f'$ is injective, $\alpha(x)=0$, i.e.\ $x\in\ker(\alpha)$.
+    Similarly $\coker(\alpha)\to\coker(\beta)\to\coker(\gamma)$ is exact.
+
+    We now construct a $\delta$ making the sequence exact.
+    Take $z\in\ker(\gamma)$, choose $y$ such that $g(y)=z$, then $g'(\beta(y))=\gamma(g(y))=\gamma(z)=0$, hence there exists a unique $u\in U$ such that $f'(u)=\beta(y)$.
+    Set $\delta(z)=u+\im(\alpha)$.
+    We show $\delta$ is well-defined.
+    If $g(y')=z$, let $f'(u')=\beta(y')$, then $g(y-y')=0$, there exists an $x\in X$ such that $f(x)=y'-y$.
+    Therefore
+    \[f(u'-u)=\beta(y'-y)=\beta(f(x))=f'(\alpha(x))\]
+    Since $f'$ in injective, we have $u'-u=\alpha(x)\in\im(\alpha)$, hence $\delta$ is well-defined.
+    Consider $\ker(\beta)\to\ker(\gamma)\xrightarrow{\delta}\coker(\alpha)$, let $z\in\ker(\gamma)$ and $\delta(z)=0$.
+    Then let $g(y)=z,f'(u)=\beta(y)$, we have $u\in\im(\alpha)$.
+    Let $\alpha(x)=u$, then $\beta(y)=f'(\alpha(x))=\beta(f(x))$, we have $y-f(x)\in\ker(\beta)$.
+    Moreover, $g(y-f(x))=z$, we have $\ker(\delta)\subset\im(g|_{\ker\beta})$, the sequence is exact.
+    Similarly $\ker(\gamma)\xrightarrow{\delta}\coker(\alpha)\to\coker(\beta)$ is exact.
+\end{proof}
+
+\begin{proof}[Proof of Zig-zag lemma]
+    Consider the following commutative diagram
+    \[\begin{tikzcd}
+        {} & 0 \ar[d] & 0 \ar[d] & 0 \ar[d] & {}\\
+        {} & H^n(C) \ar[d] & H^n(D) \ar[d] & H^n(E) \ar[d] & {}\\
+        {} & \coker(\delta^{n-1}_C) \ar[r, "f"] \ar[d] & \coker(\delta^{n-1}_D) \ar[r, "g"] \ar[d] & \coker(\delta^{n-1}_E) \ar[r] \ar[d] & 0 \\
+        0 \ar[r] & \ker(\delta^n_C) \ar[r, "f"] \ar[d] & \ker(\delta^n_D) \ar[r, "g"] \ar[d] & \ker(\delta^n_E) \ar[d] & {} \\
+        {} & H^{n+1}(C) \ar[d] & H^{n+1}(D) \ar[d] & H^{n+1}(E) \ar[d] & {}\\
+        {} & 0 & 0 & 0 & {}
+    \end{tikzcd}\]
+    Diagram chasing shows the rows are exact, and by Lemma~\ref{coho short exact}, the columns are exact.
+    Hence the result follows from Snake lemma.
+\end{proof}
+
+Our next result on cohomology is that cohomology is natural.
+
+\begin{thm}[Naturality of cohomology]
+    Let
+    \[\begin{tikzcd}
+        0\ar[r] & C \ar[r]\ar[d, "f"] & D \ar[r]\ar[d, "g"] & E \ar[r]\ar[d, "h"] & 0 \\
+        0\ar[r] & C' \ar[r] & D'\ar[r] & E' \ar[r] & 0
+    \end{tikzcd}\]
+    be commutative diagram of cochain complexes with exact rows, then the long exact sequence of cohomology modules
+    \[\begin{tikzcd}
+        0 \ar[r] & H^0(C) \ar[r] \ar[d, "f^0"] & H^0(D) \ar[r] \ar[d, "g^0"] & H^0(E) \ar[r, "\delta^*"] \ar[d, "h^0"] & H^1(C) \ar[r] \ar[d, "f^1"] & \cdots\\
+        0 \ar[r] & H^0(C') \ar[r] & H^0(D') \ar[r] & H^0(E') \ar[r, "(\delta')^*"] & H^1(C') \ar[r] & \cdots
+    \end{tikzcd}\]
+    is commute.
+\end{thm}
+\begin{proof}
+    Diagram chasing.
+\end{proof}
+
+\subsection*{Direct Limit}
+
+\begin{defn}
+    A \emph{direct set} is a preordered set $(I,<)$ such that for $i,j\in I$, there is a $k\in I$ satisfying $i<k,j<k$.
+    A \emph{direct system} is a set of rings or $R$-modules indexed by a direct set, with homomorphisms $\varphi_{ij}:M_i\to M_j$ whenever $i<j$ and $\varphi_{jk}\circ\varphi_{ij}=\varphi_{ik}$ whenever $i<j<k$.
+
+    If $\{M_i\}_{i\in I}$ is a direct system, then the \emph{direct limit} of the direct system is a ring or $R$-module $\varinjlim_{i\in I}M_i$ with homomorphisms $\varphi_i:M_i\to\varinjlim_{i\in I}M_i$, satsifying for every $N$ with homomorphisms $\psi_i:M_i\to N$ that compatible with $\varphi_{ij}$'s, then there exists a unique homomorphism $\psi_N:\varinjlim_{i\in I}M_i\to N$ compatible with all homomorphisms.
+\end{defn}
+
+We just outline the construction of direct limits.
+If $\{M_i\}_{i\in I}$ is a direct system, then $\varinjlim_{i\in I}M_i$ is a quotient of $\coprod_{i\in I}M_i$.
+For rings, the coporduct notation stands for disjoint union, and quotient out the following equivalent relation: For $m_i\in M_i,m_j\in M_j$, $m_i\sim m_j$ if there exists $k\in I$ such that $i<k,j<k$ and $\varphi_{ik}(m_i)=\varphi_{jk}(m_j)$;
+For $R$-modules, the coproduct notation stands for direct sum, and quotient out the submodule $Q$ generated by elements with form $\iota_i(m_i)-\iota_j(\varphi_{ij}(m_i))$, where $\iota_i$ is the natural embedding. 
+
+\begin{prop}
+    If $(I,<)$ is a direct set, $\{M_i'\}_{i\in I},\{M_i\}_{i\in I},\{M_i''\}_{i\in I}$ are direct systems, and for all $i\in I$ the sequence $M_i'\xrightarrow{f_i}M_i\xrightarrow{g_i}M_i''$ is exact, then the sequence
+    \[\varinjlim_{i\in I}M_i'\xrightarrow{f}\varinjlim_{i\in I}M_i\xrightarrow{g}\varinjlim_{i\in I}M_i''\]
+    is exact.
+\end{prop}
+\begin{proof}
+    We prove for modules.
+    Denote $H_i=\ker(g_i)/\im(f_i)$, $H=\ker(g)/\im(f)$.
+    Then for each $I$, there is a canonical homomorphism $H_i\to H$.
+    This give rise a homomorphism $\varinjlim_{i\in I}H_i\to H$, we need to prove this homomorphism is surjective.
+    Let $h\in H$, $h=m+\im(f)$, and let $m=\varphi_i(m_i)$ for some $m_i\in M_i$.
+    Then there exists $j\geq i$ such that $\varphi_{ij}''(g_i(m_i))=0$, set $m_j=\varphi_{ij}(m_i)$, then $\varphi_j(m_j)=m$ and $m_j\in\ker(g_j)$.
+    Hence the map is surjective.
+    But $\varinjlim_{i\in I}H_i=0$, we obtain $H=0$.
+\end{proof}
+
+\begin{rem}
+    In fact, further argument shows direct limit preserves homology.
+    We refer to~\cite[Lemma 10.8.8]{stacks-project}.
+\end{rem}
+
+\section{Sheaves}
+
+Instead of using \emph{espace \'{e}tale} as Morrow and Kodaira do, we shall adopt the standard definition of a sheaf.
+
+\begin{defn}
+    A \emph{presheaf} $\mathcal{F}$ on a topological space $X$ associates every open set to a group $\mathcal{F}(U)$, called the sections of $\mathcal{F}$ on $U$, and for each two open sets $U\subset V$ there is a \emph{restriction map} $\res^V_U:\mathcal{F}(V)\to\mathcal{F}(U)$ such that:
+    \begin{enumerate}[(1)]
+        \item For open sets $U\subset V\subset W$, we have $\res^V_U\circ\res^W_V=\res^W_U$;
+        \item For open set $U$, we have $\res^U_U=\mathrm{id}_U$.
+    \end{enumerate}
+    A \emph{sheaf} $\mathcal{F}$ on $X$ is a presheaf satisfying the following two sheaf axioms:
+    \begin{enumerate}[(1)]
+        \item If for open set $U$ with open cover $U=\bigcup_{i\in I}U_i$ and $f\in\mathcal{F}(U)$, $\res^U_{U_i}f=0,\ \forall i\in I$, then $f=0$;
+        \item If for open set $U$ with open cover $U=\bigcup_{i\in I}U_i$, and $f_i\in U_i$ with $\res^{U_i}_{U_i\cap U_j}f_i=\res^{U_j}_{U_i\cap U_j}f_j$, then there exists a unique $f\in U$ such that $\res^U_{U_i}f=f_i$.
+    \end{enumerate}
+    If the sections are rings, then the sheaf is called a \emph{sheaf of rings}, for $R$-modules \emph{mutatis mutandis}.
+\end{defn}
+
+\begin{eg}
+    We give some examples of sheaves.
+    \begin{enumerate}
+        \item Let $M$ be a complex manifold.
+        A \emph{holomorphic function} on $M$ is a complex valued function $f$ such that for every atlas $(U,\varphi)$ the function $f\circ\varphi^{-1}$ is holomorphic.
+        Define $\mathcal{O}$ as for open set $U$ on $M$, $\mathcal{O}(U)$ is the ring of all holomorphic functions defined on $U$.
+        (Notice that any open set on a complex manifold is a complex manifold.)
+        \item Let $M$ be a complex manifold.
+        Define $\mathcal{O}^*$ satisfy whose sections are nonzero holomorphic functions.
+        \item Let $M$ be a complex manifold.
+        Define $\mathcal{D}$ satisfy whose sections are differentiable functions.
+        \item Let $M$ be a complex manifold.
+        Define $\mathbb{Z},\mathbb{R},\mathbb{C}$ to be the sheaf with sections are locally constant $\mathbb{Z}$-, $\mathbb{R}$-, $\mathbb{C}$-valued functions.
+    \end{enumerate}
+\end{eg}
+
+\begin{defn}
+    A \emph{morphism} $f:\mathcal{F}\to\mathcal{G}$ between (pre)sheaves on $X$ is a collection of homomorphisms $f(U)$ for open sets $U$ of $X$, satisfying for any $U\subset V$ the following diagram commutes
+    \[\begin{tikzcd}
+        \mathcal{F}(V)\ar[r,"f(V)"]\ar[d,"\res^V_U"] & \mathcal{G}(V)\ar[d,"\res^V_U"]\\
+        \mathcal{F}(U)\ar[r,"f(U)"] & \mathcal{G}(U)
+    \end{tikzcd}\]
+    The \emph{kernel} of a sheaf morphism $f:\mathcal{F}\to\mathcal{G}$ is defined as $\ker(f)(U)=\ker(f(U))$.
+    To avoid confusion, this means the section of kernel sheaf on $U$ is the kernel of $f(U)$.
+    It's easy to verify this is a sheaf.
+\end{defn}
+
+\begin{eg}
+    We cannot define the image of a morphism in the same way.
+    For example, let's take the morphism
+    \[\exp:\mathcal{O}\to\mathcal{O}^*\]
+    Denote $\preim(\exp)(U)=\im(\exp(U))$, then for every simply connected open set $W\subset\mathbb{C}\backslash\{0\}$, $\mathrm{id}_W\in\preim(\exp)(U)$, but $\mathrm{id}_{\mathbb{C}\backslash\{0\}}\notin\preim(\exp)(\mathbb{C}\backslash\{0\})$, this shows $\preim(\exp)$ does not satisfy the sheaf axiom.
+    To fix this, we need the following construction.
+\end{eg}
+
+\begin{defn}
+    Let $\mathcal{F}$ be a presheaf, then there exists a sheaf $\mathcal{F}^+$ with presheaf morphism $\varphi:\mathcal{F}\to\mathcal{F}^+$, satisfying for any sheaf $\mathcal{G}$ and morphism $f:\mathcal{F}\to\mathcal{G}$, $f$ factors through $\varphi$, i.e.\ there exsits a unique $f^+:\mathcal{F}^+\to\mathcal{G}$ making the following diagram commute
+    \[\begin{tikzcd}
+        \mathcal{F} \ar[rr, "f"] \ar[dr, "\varphi"] & & \mathcal{G} \\
+        {} & \mathcal{F}^+\ar[ur, "f^+"] & {}
+    \end{tikzcd}\]
+    The sheaf $\mathcal{F}^+$ is called the \emph{sheafification} of $\mathcal{F}$.
+\end{defn}
+
+By the definition, sheafification is unique up to an isomorphism (i.e.\ an invertible morphism).
+For the construction, we refer to~\cite[Section 6.17]{stacks-project}.
+
+\begin{defn}
+    Let $f:\mathcal{F}\to\mathcal{G}$ be a sheaf morphism, and $\preim(f)$ defined as $\preim(f)(U)=\im(f(U))$.
+    Then the \emph{image} of $f$ is defined as the sheafification of $\preim(f)$.
+\end{defn}
+
+\begin{defn}
+    Let $\mathcal{F}\xrightarrow{f}\mathcal{G}\xrightarrow{g}\mathcal{H}$ be sequence of sheaves and morphisms.
+    The sequence is called \emph{exact}, if $\im(f)=\ker(g)$.
+\end{defn}
+
+\begin{eg}
+    The most fundamental exact sequence of sheaves is \emph{exponential sheaf sequence}:
+    \[0\to\mathbb{Z}\to\mathcal{O}\xrightarrow{\exp}\mathcal{O}^*\to 0\]
+    Where the first morphism is the obvious inclusion, and $\exp(f)=e^{2\pi\sqrt{-1}f}$.
+    We check the surjectivity of last morphism.
+    Let $f\in\mathcal{O}^*(U)$, then $U$ can be covered by simply connected open sets $\{U_i\}_{i\in I}$ (for instance, open disks).
+    On $U_i$ we have $\mathcal{O}^*(U_i)=\im(\exp)(U_i)$, then there is $g_i\in\im(\exp)(U_i)$ such that $g_i=\res^U_{U_i}(f)$.
+    By sheaf axiom, there is a unique $g\in\im(\exp)(U)$ such that $\res^U_{U_i}(g)=g_i$ for $i\in I$.
+    Mapping $f\mapsto g$, we get a sheaf morphism $\mathcal{O}^*\to\im(\exp)$, then by the uniqueness of sheafification, $\mathcal{O}^*=\im(\exp)$.
+\end{eg}
