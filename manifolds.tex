@@ -17,11 +17,11 @@ From now on we shall use \emph{domain} to denote a connected open set.
     If $p(z)=\sum c_{k_1\cdots k_n}(z_1-a_1)^{k_1}\cdots(z_n-a_n)^{k_n}$ converges at $z=w$, then $p(z)$ converges for every $z$ with $|z_k-a_k|<|w_k-a_k|,\ k=1,\cdots,n$.
 \end{prop}
 \begin{proof}
-    Trivial.
+    Left to reader.
 \end{proof}
 
 \begin{defn}
-    The neighborhood above is called a \emph{polydisc} or \emph{polycylinder}, and denoted by $P(a,r)=\{z\in\mathbb{C}^n:\ |z-a|<r\}$.
+    The neighborhood above is called a \emph{polydisc} or \emph{polycylinder}, and denoted by $P(a,r)=\{z\in\mathbb{C}^n:\ |z_k-a_k|<r_k,\ k=1,2,\cdots,n\}$.
 \end{defn}
 
 A complex valued function of $n$ complex variables can be seen as a function of $2n$ real variables, thus we have the following definition.
@@ -99,7 +99,7 @@ We now introduce the Cauchy--Riemann equations.
 \end{cor}
 
 \begin{cor}
-    The set $\Gamma(\Omega,\mathcal{O}_{\mathbb{C}^n})$ of holomorphic functions on open set $\Omega$ forms a ring. (We use sheaf notation before we introduce what is a sheaf.)
+    The set $\mathcal{O}_{\mathbb{C}^n}(\Omega)$ of holomorphic functions on open set $\Omega$ forms a ring. (We use sheaf notation before we introduce what is a sheaf.)
 \end{cor}
 
 \begin{defn}
@@ -109,7 +109,7 @@ We now introduce the Cauchy--Riemann equations.
         \partial{f_1}/\partial{z_1} & \cdots & \partial{f_m}/\partial{z_1}\\
         \vdots & \ddots & \vdots \\
         \partial{f_1}/\partial{z_n} & \cdots & \partial{f_m}/\partial{z_n}
-    \end{bmatrix}:=\left[\frac{\partial{f_i}}{\partial{z_j}}\right]_{1\leq i\leq m,1\leq j\leq n}\]
+    \end{bmatrix}=:\left[\frac{\partial{f_i}}{\partial{z_j}}\right]_{1\leq i\leq m,1\leq j\leq n}\]
     is called \emph{Jacobian matrix}, and if $m=n$, the determinant $\det[\partial{f_i}/\partial{z_j}]$ is called the \emph{Jacobian}.
 \end{defn}
 
@@ -168,7 +168,7 @@ And we have
     We expand the determinant, extract odd rows and even rows respectively, and we get
     \begin{align*}
         \frac{\partial(u,v)}{\partial(x,y)}&=\sum_{\sigma,\tau\in S_n}\sgn\sigma\sgn\tau\left(\frac{\partial{f_1}}{\partial{z_{\sigma(1)}}}\cdots\frac{\partial{f_n}}{\partial{z_{\sigma(n)}}}\right)\left(\overline{\frac{\partial{f_1}}{\partial{z_{\tau(1)}}}}\cdots\overline{\frac{\partial{f_n}}{\partial{z_{\tau(n)}}}}\right)\\
-        &=\det[\partial{f_i}/\partial{z_j}]\overline{\det[\partial{f_i}/\partial{z_j}}\\
+        &=\det[\partial{f_i}/\partial{z_j}]\overline{\det[\partial{f_i}/\partial{z_j}]}\\
         &=|\det[\partial{f_i}/\partial{z_j}]|^2\qedhere
     \end{align*}
 \end{proof}
@@ -186,7 +186,7 @@ And we have
         0=\frac{\partial z_i}{\partial\overline{z_k}}&=\sum_{j=1}^n\left(\frac{\partial\varphi_i(w)}{\partial w_j}\cdot\frac{\partial f_j(z)}{\partial\overline{z_k}}+\frac{\partial\varphi_i(w)}{\partial\overline{w_j}}\cdot\frac{\partial\overline{f_j(z)}}{\partial\overline{z_k}}\right)\\
         &=\sum_{j=1}^n\frac{\partial\varphi_i(w)}{\partial\overline{w_j}}\cdot\frac{\partial\overline{f_j(z)}}{\partial\overline{z_k}}
     \end{align*}
-    Since $\det[\partial\overline{f_j(z)}/\partial\overline{z_k}]=\overline\det[\partial f_j(z)/z_k]\neq 0$, by linear algebra we have $\partial\varphi_i(w)/\partial\overline{w_j}=0$ for each $i,j$, that is, $\varphi$ is holomorphic.
+    Since $\det[\partial\overline{f_j(z)}/\partial\overline{z_k}]=\overline{\det[\partial f_j(z)/z_k]}\neq 0$, by linear algebra we have $\partial\varphi_i(w)/\partial\overline{w_j}=0$ for each $i,j$, that is, $\varphi$ is holomorphic.
 \end{proof}
 
 \section{Complex Manifolds}
@@ -214,7 +214,7 @@ In the rest of the section, we provide some examples and constructions of comple
     It can be realized as the sphere $\{z\in\mathbb{C}^{n+1}:\ |z|=1\}$ quotient out antipodal points, so it is a compact topological space.
     We denote the elements of $\mathbb{P}^n$ by \emph{homogeneous coordinate} $(p_0,p_1,\cdots,p_n)$.
     The complex projective space is a complex manifolds in the following manner:
-    We define $U_j=\{p\in\mathbb{P}^n:\ p_j\neq 0\}$, then $\{U_j\}$ is an open covering of $\mathbb{P}^n$.
+    We define $U_j=\{p\in\mathbb{P}^n:\ p_j\neq 0\}$, $j=0,1,\cdots,n$, then $\{U_j\}$ is an open cover of $\mathbb{P}^n$.
     Define $z_j(p)=(z_j^0,\cdots,z_j^{j-1},z_j^{j+1},\cdots,z_j^n)$, where $z_j^i=p_i/p_j$, then $z_j$ maps each $U_j$ homeomorphically onto $\mathbb{C}^n$.
     Moreover, we have $f_{jk}=z_j\circ z_k^{-1}$ given by
     \[(x_1,\cdots,x_k,\cdots,x_n)\mapsto\left(\frac{x_1}{x_j},\cdots,\frac{1}{x_j},\cdots,\frac{x_n}{x_j}\right)\]
