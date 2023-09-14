@@ -207,20 +207,20 @@ Instead of using \emph{espace \'{e}tale} as Morrow and Kodaira do, we shall adop
     The elements in $\mathcal{F}_x$ are called \emph{germs}.
 \end{defn}
 
-% \begin{prop}\label{inj of natural map}
-%     Let $\mathcal{F}$ be a sheaf on $X$, then for any $U\subset X$ open, the natural map
-%     \[
-%         \mathcal{F}(U)\to\prod_{x\in U}\mathcal{F}_x
-%     \]
-%     is injective.
-% \end{prop}
-% \begin{proof}
-%     We prove for sheaf of rings.
-%     Let $s\in\mathcal{F}(U)$ be in the kernel of the map, i.e. $(s_x)_{x\in U}=0$.
-%     Then by the construction of direct limit, for every $x\in U$, there is a neighborhood $U_x$ of $x$ such that $\res^U_{U_x}(s)=0$.
-%     But $\bigcup_{x\in U}U_x$ is an open cover of $U$, by sheaf axiom, we must have $s=0$.
-%     This proves the injectivity.
-% \end{proof}
+\begin{prop}\label{inj of natural map}
+    Let $\mathcal{F}$ be a sheaf on $X$, then for any $U\subset X$ open, the natural map
+    \[
+        \mathcal{F}(U)\to\prod_{x\in U}\mathcal{F}_x
+    \]
+    is injective.
+\end{prop}
+\begin{proof}
+    We prove for sheaf of rings.
+    Let $s\in\mathcal{F}(U)$ be in the kernel of the map, i.e. $(s_x)_{x\in U}=0$.
+    Then by the construction of direct limit, for every $x\in U$, there is a neighborhood $U_x$ of $x$ such that $\res^U_{U_x}(s)=0$.
+    But $\bigcup_{x\in U}U_x$ is an open cover of $U$, by sheaf axiom, we must have $s=0$.
+    This proves the injectivity.
+\end{proof}
 
 \begin{defn}
     A \emph{morphism} $f:\mathcal{F}\to\mathcal{G}$ between (pre)sheaves on $X$ is a collection of homomorphisms $f(U)$ for open sets $U$ of $X$, satisfying for any $U\subset V$ the following diagram commutes
@@ -266,7 +266,8 @@ By the definition, sheafification is unique up to an isomorphism (i.e.\ an inver
 For detailed construction and proof, we refer to~\cite[Section 6.17]{stacks-project}.
 
 \begin{defn}
-    Let $f:\mathcal{F}\to\mathcal{G}$ be a sheaf morphism, and $\preim(f)$ defined as $\preim(f)(U)=\im(f(U))$.
+    Let $f:\mathcal{F}\to\mathcal{G}$ be a sheaf morphism, and the sheaf $\preim(f)$ is defined as
+    \[\preim(f)(U)=\im(f(U))\]
     Then the \emph{image} of $f$ is defined as the sheafification of $\preim(f)$, denoted by $\im(f)$.
 \end{defn}
 
@@ -845,7 +846,7 @@ In fact, we have an enhanced conclusion.
 
 \begin{rem}
     Generally speaking, we often define de Rham cohomology group of complex coefficients as the cohomology of the cochain complex
-    \[0\to\mathbb{C}(X)\to A^0(M)\xrightarrow{\d{}}A^1(X)\xrightarrow{\d{}}A^2(X)\xrightarrow{\d{}}\cdots\]
+    \[0\to\mathbb{C}(X)\to A^0(X)\xrightarrow{\d{}}A^1(X)\xrightarrow{\d{}}A^2(X)\xrightarrow{\d{}}\cdots\]
     in algebraic topology.
     Denote the $q$th de Rham cohomology group by $H^q_{\mathrm{DR}}(X,\mathbb{C})$, then traditionally de Rham's theorem reads $\check{H}^q(X,\mathbb{C})\cong H^q_{\mathrm{DR}}(X,\mathbb{C})$.
     This is equivalent to the form we state in Corollary~\ref{de rham}.
