@@ -294,7 +294,7 @@ Next we consider \emph{quotient spaces}.
 \end{eg}
 
 \begin{eg}[Hopf manifolds]
-    Let $W=\mathbb{C}^n\backslash\{0\}$ and
+    Let $W=\mathbb{C}^n\setminus\{0\}$ and
     \[G=\{g^m:\ m\in\mathbb{Z},g(w)=\lambda^nw,0<|\lambda|<1\}\]
     It is easy to see $G$ is properly discontinuous and has no fixed points on $W$, so $W/G$ is a complex manifold.
     Moreover, one can show that $W/G$ is diffeomorphic to $\mathbb{S}^1\times\mathbb{S}^{2n-1}$.
@@ -314,9 +314,9 @@ Next we consider \emph{quotient spaces}.
 
 Finally we discuss \emph{surgeries}.
 Given a complex manifold $M$ and a compact submanifold or subvariety $S\subset M$.
-Suppose we have neighborhood $W$ of $S$ and manifolds $S^*\subset W^*$, and we also have a biholomorphic map $f:W^*\backslash S^*\to W\backslash S$.
-Then we can replace $W$ by $W^*$ and get a new manifold $M^*=(M\backslash W)\cup W^*$.
-More precisely, $M^*=(M\backslash S)\cup W^*$, where each point $z^*\in W^*\backslash S^*$ is identified with $z=f(z^*)$.
+Suppose we have neighborhood $W$ of $S$ and manifolds $S^*\subset W^*$, and we also have a biholomorphic map $f:W^*\setminus S^*\to W\setminus S$.
+Then we can replace $W$ by $W^*$ and get a new manifold $M^*=(M\setminus W)\cup W^*$.
+More precisely, $M^*=(M\setminus S)\cup W^*$, where each point $z^*\in W^*\setminus S^*$ is identified with $z=f(z^*)$.
 
 \begin{figure}[H]
     \centering
@@ -328,9 +328,9 @@ More precisely, $M^*=(M\backslash S)\cup W^*$, where each point $z^*\in W^*\back
     Let $M=\mathbb{P}^1\times\mathbb{P}^1$.
     Since $\mathbb{P}^1=\mathbb{C}\cup\{\infty\}$, we can set $S=\{0\}\times\mathbb{P}^1$, $W=\{(z,\zeta)\in\mathbb{C}\times\mathbb{P}^1:\ |z|<\varepsilon\}$ be a neighborhood of $S$ in $M$.
     Let $W^*=\{(z,\zeta)\in\mathbb{C}\times(\mathbb{P}^1)^*:\ |z|<\varepsilon\}$ and $S=\{0\}\times(\mathbb{P}^1)^*$.
-    Fix an integer $m>0$ and define $f:W^*\backslash S^*\to W\backslash S$ by
+    Fix an integer $m>0$ and define $f:W^*\setminus S^*\to W\setminus S$ by
     \[f(z,\zeta^*)=(z,\zeta^*/z^m)\]
-    Then $f$ is biholomorphic, let $M_m^*=(M\backslash S)\cup W^*$.
+    Then $f$ is biholomorphic, let $M_m^*=(M\setminus S)\cup W^*$.
     Hirzebruch proved the following properties in~\cite{Hirzebruch51}:
     \begin{enumerate}
         \item $M$ and $M_m^*$ are topologically different if $m$ is odd.
@@ -343,14 +343,14 @@ More precisely, $M^*=(M\backslash S)\cup W^*$, where each point $z^*\in W^*\back
 \begin{eg}[Blowing up]
     First we discuss the case where $M$ has complex dimension $2$.
     Let $p$ be any point on $M$, $S=\{p\}$ and $S^*=\mathbb{P}^1$.
-    We define $M^*=(M\backslash S)\cup\mathbb{P}^1$ as follows:
+    We define $M^*=(M\setminus S)\cup\mathbb{P}^1$ as follows:
     Choose a coordinate chart $(W,z)$ such that $z(p)=0$, $|z_1|<\varepsilon,|z_2|<\varepsilon$.
     We define a subvariety $W^*$ of $W\times\mathbb{P}^1$ by
     \[W^*:=\{(z_1,z_2,(\zeta_1,\zeta_2))\in W\times\mathbb{P}^1:\ z_1\zeta_2-z_2\zeta_1=0\}\]
     Since $\partial{f}/\partial{z_1}=\zeta_2,\partial{f}/\partial{z_2}=-\zeta_1$ if $f=z_1\zeta_2-z_2\zeta_1$, $(\partial{f}/\partial{z_1},\partial{f}/\partial{z_2})\neq 0$, hence $W^*$ is a submanifold.
-    Let $f^*:W^*\to W$ be the restriction of projection map $W\times\mathbb{P}^1\to W$, then $W^*\supset 0\times\mathbb{P}^1$, $f^*:S^*\to\{p\}$, and $f^*:W^*\backslash S^*\to W\backslash S$ is biholomorphic.
+    Let $f^*:W^*\to W$ be the restriction of projection map $W\times\mathbb{P}^1\to W$, then $W^*\supset 0\times\mathbb{P}^1$, $f^*:S^*\to\{p\}$, and $f^*:W^*\setminus S^*\to W\setminus S$ is biholomorphic.
     That is because $f^*$ has inverse $(z_1,z_2)\to(z_1,z_2,(z_1,z_2))$.
-    By surgery we obtain $M^*=(M\backslash\{p\})\cup\mathbb{P}^1$.
+    By surgery we obtain $M^*=(M\setminus\{p\})\cup\mathbb{P}^1$.
     We call $M^*$ the \emph{blowing up} of $M$ at $p$, and denote $M^*=\Bl_p(M)$.
 
     Blowing up can be complicated, a well-known fact in algebraic geometry is for six points $P_1,\cdots,P_6$ in ``general position'' (specified, no three points are colinear and no six points are on a conic), we have
@@ -358,5 +358,5 @@ More precisely, $M^*=(M\backslash S)\cup W^*$, where each point $z^*\in W^*\back
 
     General case is similar, if $\dim_\mathbb{C}M=n$, let $p\in M$ and $(W,z)$ be a coordinate chart as above.
     Define the submanifold $W^*:=\{(z,\zeta):\ z_i\zeta_j-z_j\zeta_i=0,\ 1\leq i<j\leq n\}$, and $f^*$ be the restriction of projection map $W\times\mathbb{P}^1\to W$.
-    $f^*:(W^*\backslash\mathbb{P}^1)\to(W\backslash\{p\})$ is biholomorphic, so by surgery, we get $\Bl_p(M)=(M\backslash\{p\})\cup\mathbb{P}^1$.
+    $f^*:(W^*\setminus\mathbb{P}^1)\to(W\setminus\{p\})$ is biholomorphic, so by surgery, we get $\Bl_p(M)=(M\setminus\{p\})\cup\mathbb{P}^1$.
 \end{eg}

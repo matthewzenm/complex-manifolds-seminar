@@ -228,8 +228,19 @@ Instead of using \emph{espace \'{e}tale} as Morrow and Kodaira do, we shall adop
         \mathcal{F}(V)\ar[r,"f(V)"]\ar[d,"\res^V_U"] & \mathcal{G}(V)\ar[d,"\res^V_U"]\\
         \mathcal{F}(U)\ar[r,"f(U)"] & \mathcal{G}(U)
     \end{tikzcd}\]
+\end{defn}
+
+\begin{defn}
+    Let $f:\mathcal{F}\to\mathcal{G}$ be a morphism of presheaves, then $f$ is injective if $f(U)$ is injective for each open set $U$.
+\end{defn}
+
+\begin{rem}
+    As we shall see later, this is different from the injectivity of sheaf morphisms.
+\end{rem}
+
+\begin{defn}
     The \emph{kernel} of a sheaf morphism $f:\mathcal{F}\to\mathcal{G}$ is defined as $\ker(f)(U)=\ker(f(U))$.
-    To avoid confusion, this means the section of kernel sheaf on $U$ is the kernel of $f(U)$.
+    To avoid confusion, this means the module (or ring) of sections of kernel sheaf on $U$ is the kernel of $f(U)$.
     It's easy to verify this is a sheaf.
 \end{defn}
 
@@ -237,7 +248,7 @@ Instead of using \emph{espace \'{e}tale} as Morrow and Kodaira do, we shall adop
     We cannot define the image of a morphism in the same way.
     For example, let's take the morphism
     \[\exp:\mathcal{O}\to\mathcal{O}^*\]
-    Denote $\preim(\exp)(U)=\im(\exp(U))$, then for every simply connected open set $W\subset\mathbb{C}\backslash\{0\}$, $\mathrm{id}_W\in\preim(\exp)(U)$, but $\mathrm{id}_{\mathbb{C}\backslash\{0\}}\notin\preim(\exp)(\mathbb{C}\backslash\{0\})$, this shows $\preim(\exp)$ does not satisfy the sheaf axiom.
+    Denote $\preim(\exp)(U)=\im(\exp(U))$, then for every simply connected open set $W\subset\mathbb{C}\setminus\{0\}$, $\mathrm{id}_W\in\preim(\exp)(U)$, but $\mathrm{id}_{\mathbb{C}\setminus\{0\}}\notin\preim(\exp)(\mathbb{C}\setminus\{0\})$, this shows $\preim(\exp)$ does not satisfy the sheaf axiom.
     To fix this, we need the following construction.
 \end{eg}
 
@@ -261,9 +272,21 @@ By the definition, sheafification is unique up to an isomorphism (i.e.\ an inver
         \item $s(x)\in\mathcal{F}_x$;
         \item For any $x\in U$, there exists a neighborhood $V$ of $x$ and $t\in\mathcal{F}(V)$, such that $s(y)=t_y$ for any $y\in V$, where $t_y$ is the image of natural map $\mathcal{F}(U)\to\mathcal{F}_y$. 
     \end{enumerate}
+    Define
+    \begin{align*}
+        \varphi(U):\mathcal{F}(U)&\to\mathcal{F}^+(U)\\
+        s&\mapsto(s_x)_{x\in U}
+    \end{align*}
     Then it is easy to verify $\mathcal{F}^+$ is a sheaf, and $\mathcal{F}^+$ satisfy the universal property.
 \end{cons}
 For detailed construction and proof, we refer to~\cite[Section 6.17]{stacks-project}.
+
+\begin{lem}\label{inj of sheafification map}
+    The presheaf morphism $\varphi:\mathcal{F}\to\mathcal{F}^+$ is injective.
+\end{lem}
+\begin{proof}
+    This follows from Proposition~\ref{inj of natural map}.
+\end{proof}
 
 \begin{defn}
     Let $f:\mathcal{F}\to\mathcal{G}$ be a sheaf morphism, and the sheaf $\preim(f)$ is defined as
@@ -272,8 +295,10 @@ For detailed construction and proof, we refer to~\cite[Section 6.17]{stacks-proj
 \end{defn}
 
 \begin{defn}
-    Let $\mathcal{F}\xrightarrow{f}\mathcal{G}\xrightarrow{g}\mathcal{H}$ be sequence of sheaves and morphisms.
+    Let $\mathcal{E}\xrightarrow{f}\mathcal{F}\xrightarrow{g}\mathcal{G}$ be sequence of sheaves and morphisms.
     The sequence is called \emph{exact}, if $\im(f)=\ker(g)$.
+    
+    A sheaf morphism $f:\mathcal{F}\to\mathcal{G}$ is called injective (resp.\ surjective) if the sequence $0\to\mathcal{F}\xrightarrow{f}\mathcal{G}$ (resp.\ $\mathcal{F}\xrightarrow{f}\mathcal{G}\to 0$) is exact.
 \end{defn}
 
 \begin{eg}
@@ -324,7 +349,7 @@ It's clear that $\delta^{q+1}\circ\delta^q=0$, this makes $C(\underline{U},\math
 Thus we define
 
 \begin{defn}
-    The \emph{\v{C}ech cohomology group} related to $\underline{U}$ is the cohomology $\mathbb{R}$-module of \v{C}ech complex $C(\underline{U},\mathcal{F})$.
+    The \emph{\v{C}ech cohomology group} related to $\underline{U}$ is the cohomology $\mathbb{R}$-module of \v{C}ech complex $C(\underline{U},\mathcal{F})$, denoted by $H^\bullet(\underline{U},\mathcal{F})$.
 \end{defn}
 
 The cohomology group is an $R$-module, but we still use the traditional name group.
@@ -366,7 +391,7 @@ We describe some low order cohomology groups.
 \end{proof}
 
 \begin{prop}\label{H^1(U) to H^1(X)}
-    The natural map $H^n(\underline{U},\mathcal{F})\to H^n(X,\mathcal{F})$ is injective.
+    The natural map $H^1(\underline{U},\mathcal{F})\to H^1(X,\mathcal{F})$ is injective.
 \end{prop}
 \begin{proof}
     Suppose $\sigma\in H^1(\underline{U},\mathcal{F})$.
@@ -744,22 +769,22 @@ We list two easy properties of exterior differential here.
     Let
     \[\varphi=\frac{1}{p!}\sum_{I^p}\varphi_{I^p}\d{x}^{I^p}\]
     Then $h:A^p\to A^{p-1}$ is defined by
-    \[h(\varphi)(x):=\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p(-1)^{j-1}\left(\int_0^1t^{p-1}\varphi_{I^p}(tx)\d{t}\right)x^{i_j}\d{x}^{I^p\backslash(i_j)}\]
-    Where $I^p\backslash(i_j)=(i_1,\cdots,\widehat{i_j},\cdots,i_p)$.
+    \[h(\varphi)(x):=\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p(-1)^{j-1}\left(\int_0^1t^{p-1}\varphi_{I^p}(tx)\d{t}\right)x^{i_j}\d{x}^{I^p\setminus(i_j)}\]
+    Where $I^p\setminus(i_j)=(i_1,\cdots,\widehat{i_j},\cdots,i_p)$.
     Since $W$ is star-shaped, $h$ is well-defined.
     Straightforward computation shows
     \begin{align*}
-        \d{h(\varphi)}(x)=&\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p(-1)^{j-1}\sum_{k=1}^n\frac{\partial}{\partial{x}^k}\left(\int_0^1\varphi_{i^p}(tx)t^{p-1}\d{t}\right)x^{i_j}\d{x}^k\wedge\d{x}^{I^p\backslash(i_j)}\\
+        \d{h(\varphi)}(x)=&\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p(-1)^{j-1}\sum_{k=1}^n\frac{\partial}{\partial{x}^k}\left(\int_0^1\varphi_{i^p}(tx)t^{p-1}\d{t}\right)x^{i_j}\d{x}^k\wedge\d{x}^{I^p\setminus(i_j)}\\
         =&\frac{1}{p!}\sum_{I^p}p\left(\int_0^1\varphi_{I^p}(tx)t^{p-1}\d{t}\right)\d{x}^{I^p}\\
-        &+\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p\sum_{k=1}^n(-1)^{j-1}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^{p-1\d{t}}\right)x^{i_j}\d{x}^k\wedge\d{x}^{I^p\backslash(i_j)}
+        &+\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p\sum_{k=1}^n(-1)^{j-1}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^{p-1\d{t}}\right)x^{i_j}\d{x}^k\wedge\d{x}^{I^p\setminus(i_j)}
     \end{align*}
     and
     \begin{align*}
         h(\d\varphi)(x)=&h\left(\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}\d{x}^k\wedge\d{x}^{I^p}\right)\\
         =&\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\right)x^k\d{x}^{I^p}\\
-        &+\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\sum_{j=2}^{p+1}(-1)^{j-1}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\d{t}\right)x^{i_{j-1}}\d{x}^k\wedge\d{x}^{I^p\backslash(i_{j-1})}\\
+        &+\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\sum_{j=2}^{p+1}(-1)^{j-1}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\d{t}\right)x^{i_{j-1}}\d{x}^k\wedge\d{x}^{I^p\setminus(i_{j-1})}\\
         =&\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\right)x^k\d{x}^{I^p}\\
-        &+\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\sum_{j=1}^{p}(-1)^{j}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\d{t}\right)x^{i_{j}}\d{x}^k\wedge\d{x}^{I^p\backslash(i_{j})}
+        &+\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\sum_{j=1}^{p}(-1)^{j}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\d{t}\right)x^{i_{j}}\d{x}^k\wedge\d{x}^{I^p\setminus(i_{j})}
     \end{align*}
     Adding $\d{h(\varphi)}$ and $h(\d{\varphi})$, the triple sums cancel, and we obtain
     \begin{align*}
@@ -797,7 +822,8 @@ In fact, we have an enhanced conclusion.
     for $q\geq 1$.
 \end{thm}
 \begin{proof}
-    We use Theorem~\ref{exact cohomology groups}~repeatedly.
+    Since $h^{q-1}H^0(X,\mathcal{A}^{q-1})=\preim(h^{q-1})(X)$, which is naturally embedded into $\im(h^{q-1})(X)=H^0(X,h^{q-1}\mathcal{A}^{q-1})$ by Lemma~\ref{inj of sheafification map}, the inclusion holds.
+    For the rest of the theorem, we use Theorem~\ref{exact cohomology groups}~repeatedly.
     Decompose the resolution into short exact sequence, we have for $p>0$
     \[0\to h\mathcal{A}^{p-1}\to\mathcal{A}^p\to h\mathcal{A}^p\to 0\]
     is exact.
