@@ -1,17 +1,19 @@
 \documentclass[a4paper]{book}
 
-% \usepackage{geometry}
+\usepackage{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{newtxtext}
-\usepackage{newtxmath}
+% \usepackage{newpxtext}
+% \usepackage{newpxmath}
 \usepackage[shortlabels]{enumitem}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usepackage{float}
-\usepackage{hyperref}
+\usepackage[colorlinks]{hyperref}
 \usepackage{fixdif}
+
+\allowdisplaybreaks[4]
 
 \bibliographystyle{alpha}
 
@@ -34,6 +36,9 @@
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\preim}{preim}
+\DeclareMathOperator{\Pic}{Pic}
+
+\numberwithin{equation}{section}
 
 \tikzset{every picture/.style={line width=0.7pt}}
 

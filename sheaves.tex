@@ -207,20 +207,20 @@ Instead of using \emph{espace \'{e}tale} as Morrow and Kodaira do, we shall adop
     The elements in $\mathcal{F}_x$ are called \emph{germs}.
 \end{defn}
 
-\begin{prop}\label{inj of natural map}
-    Let $\mathcal{F}$ be a sheaf on $X$, then for any $U\subset X$ open, the natural map
-    \[
-        \mathcal{F}(U)\to\prod_{x\in U}\mathcal{F}_x
-    \]
-    is injective.
-\end{prop}
-\begin{proof}
-    We prove for sheaf of rings.
-    Let $s\in\mathcal{F}(U)$ be in the kernel of the map, i.e. $(s_x)_{x\in U}=0$.
-    Then by the construction of direct limit, for every $x\in U$, there is a neighborhood $U_x$ of $x$ such that $\res^U_{U_x}(s)=0$.
-    But $\bigcup_{x\in U}U_x$ is an open cover of $U$, by sheaf axiom, we must have $s=0$.
-    This proves the injectivity.
-\end{proof}
+% \begin{prop}\label{inj of natural map}
+%     Let $\mathcal{F}$ be a sheaf on $X$, then for any $U\subset X$ open, the natural map
+%     \[
+%         \mathcal{F}(U)\to\prod_{x\in U}\mathcal{F}_x
+%     \]
+%     is injective.
+% \end{prop}
+% \begin{proof}
+%     We prove for sheaf of rings.
+%     Let $s\in\mathcal{F}(U)$ be in the kernel of the map, i.e. $(s_x)_{x\in U}=0$.
+%     Then by the construction of direct limit, for every $x\in U$, there is a neighborhood $U_x$ of $x$ such that $\res^U_{U_x}(s)=0$.
+%     But $\bigcup_{x\in U}U_x$ is an open cover of $U$, by sheaf axiom, we must have $s=0$.
+%     This proves the injectivity.
+% \end{proof}
 
 \begin{defn}
     A \emph{morphism} $f:\mathcal{F}\to\mathcal{G}$ between (pre)sheaves on $X$ is a collection of homomorphisms $f(U)$ for open sets $U$ of $X$, satisfying for any $U\subset V$ the following diagram commutes
@@ -255,7 +255,7 @@ By the definition, sheafification is unique up to an isomorphism (i.e.\ an inver
     We now construct sheafification.
     Let $\mathcal{F}$ be a presheaf on $X$.
     Define a presheaf $\mathcal{F}^+$ as follows:
-    For open set $U\subset X$, $\mathcal{F}^+(U)$ consists of mappings $s:U\to\coprod_{x\in U}\mathcal{F}_x$,
+    For open set $U\subset X$, $\mathcal{F}^+(U)$ consists of maps $s:U\to\coprod_{x\in U}\mathcal{F}_x$,
     satisfying
     \begin{enumerate}[(1)]
         \item $s(x)\in\mathcal{F}_x$;
@@ -286,6 +286,26 @@ For detailed construction and proof, we refer to~\cite[Section 6.17]{stacks-proj
     Mapping $f\mapsto g$, we get a sheaf morphism $\mathcal{O}^*\to\im(\exp)$, then by the uniqueness of sheafification, $\mathcal{O}^*=\im(\exp)$.
 \end{eg}
 
+We have a simpler criterion for exactness.
+\begin{prop}\label{exactness of sheaves}
+    The sequence $\mathcal{E}\xrightarrow{f}\mathcal{F}\xrightarrow{g}\mathcal{G}$ of sheaves on $X$ is exact if and only if $\mathcal{E}_x\xrightarrow{f_x}\mathcal{F}_x\xrightarrow{g_x}\mathcal{G}_x$ is exact for each $x\in X$.
+\end{prop}
+\begin{proof}
+    One side is easy.
+    We suppose $\mathcal{E}_x\xrightarrow{f_x}\mathcal{F}_x\xrightarrow{g_x}\mathcal{G}_x$ is exact for each $x\in X$, and prove $\mathcal{E}\xrightarrow{f}\mathcal{F}\xrightarrow{g}\mathcal{G}$ is exact.
+    Let $U\subset X$ be open.
+    Assume $s\in\im(f)(U)$, substitute $\mathcal{G}$ by its sheafification, we have
+    \[g(s)=(g_x(s_x))_{x\in U}\]
+    But $s_x\in\im(f)_x=\ker(g)_x$, we have $g(s)=0$, i.e.\ $\im(f)(U)\subset\ker(g)(U)$.
+    Conversely, if $g(s)=0$, for each $x\in U$ we have $g_x(s_x)=0$.
+    Then $s_x\in\im(f)_x=\preim(f)_x$, we show that $s\in\im(f)(U)$.
+    For each $x\in U$, there is a neighborhood $U_x$ of $x$ such that there exists a $t\in\mathcal{F}(U)$ satisfying $s_y=t_y$ for every $y\in U_x$.
+    We must show that $t\in\preim(f)(U_x)$.
+    Since $s_x\in\preim(f)_x$, there is a neighborhood $V$ of $x$ such that there exists an $r\in\im(f(V))$ satisfying $r_x=s_x$.
+    Then $r_x=t_x$, by shrinking $U_x$ we can assume $r$ and $t$ coincide on $U_x$.
+    Hence $t\in\preim(f)(U_x)$, this shows $s\in\im(f)(U)$.
+\end{proof}
+
 \section{Cohomology Groups}
 
 In this section we define the \emph{\v{C}ech cohomology groups} of a paracompact Hausdorff space.
@@ -310,7 +330,7 @@ The cohomology group is an $R$-module, but we still use the traditional name gro
 
 We now construct the \v{C}ech cohomology group that does not depend on open cover.
 We define a preorder on the collection of all locally finite open cover as follows:
-Let $\underline{U}=\{U_i\}_{i\in I},\underline{V}=\{V_j\}_{j\in J}$ be two locally finite open cover, define $\underline{U}\prec\underline{V}$ if there exists a mapping $\rho:J\to I$ such that $V_j\subset U_{\rho(j)}$ for each $j\in J$.
+Let $\underline{U}=\{U_i\}_{i\in I},\underline{V}=\{V_j\}_{j\in J}$ be two locally finite open cover, define $\underline{U}\prec\underline{V}$ if there exists a map $\rho:J\to I$ such that $V_j\subset U_{\rho(j)}$ for each $j\in J$.
 We call $\rho$ a \emph{refinement map} of $\underline{U}$.
 Then we can define a cochain map (with abuse of notation) $\rho:C(\underline{U},\mathcal{F})\to C(\underline{V},\mathcal{F})$ by
 \[(\rho(c))_{(i_0,\cdots,i_q)}=c_{(\rho(i_0),\cdots,\rho(i_q))}|_{V_{i_0\cdots i_q}}\]
@@ -325,8 +345,12 @@ On a paracompact Hausdorff space, two locally finite open cover has a common ref
 This makes $H^\bullet(\underline{U},\mathcal{F})$ into a direct set.
 Thus we define
 \begin{defn}
-    The \emph{\v{C}ech cohomology group} of a paracompact Hausdorff space $X$ is $H^\bullet(X,\mathcal{F}):=\varinjlim_{\underline{U}}H^\bullet(\underline{U},\mathcal{F})$.
+    The \emph{\v{C}ech cohomology group} of a paracompact Hausdorff space $X$ is 
+    \[H^\bullet(X,\mathcal{F}):=\varinjlim_{\underline{U}}H^\bullet(\underline{U},\mathcal{F})\]
+    We also denote \v{C}ech cohomology group by $\check{H}^\bullet(X,\mathcal{F})$ if there is any confusion.
 \end{defn}
+
+We describe some low order cohomology groups.
 
 \begin{prop}
     $H^0(X,\mathcal{F})\cong\mathcal{F}(X)$.
@@ -340,9 +364,31 @@ Thus we define
     Hence $H^0(\underline{U},\mathcal{F})\cong\mathcal{F}(X)$, and therefore $H^0(X,\mathcal{F})\cong\mathcal{F}(X)$.
 \end{proof}
 
+\begin{prop}\label{H^1(U) to H^1(X)}
+    The natural map $H^n(\underline{U},\mathcal{F})\to H^n(X,\mathcal{F})$ is injective.
+\end{prop}
+\begin{proof}
+    Suppose $\sigma\in H^1(\underline{U},\mathcal{F})$.
+    Then $\sigma=(\sigma_{(i_0,i_1)})+\im(\delta^0)$, $\sigma_{(i_0,i_1)}\in\mathcal{F}(U_{i_0i_1})$ and $\delta(\sigma)=(\sigma_{(i_1,i_2)}-\sigma_{(i_0,i_2)}+\sigma_{(i_0,i_1)})=0$.
+    By taking $i_0=i_1=i$, we obtain $\sigma_{(i,i)}=0$.
+    Assume $\sigma$ is in the kernel of natural map, then $\rho(\sigma)\in\im(\delta^0)$ for some open cover $\underline{V}$ such that $\underline{U}\prec\underline{V}$ with $\rho:J\to I$. 
+    We can assume that $U_i=\bigcup_{\rho(j)=i}V_j$.
+    For if not, let $\underline{W}:=\{W_{ij}=U_i\cap V_j\}$.
+    Then $\underline{W}$ is a refinement of $\underline{V}$ with refinement map $\varpi:I\times J\to J$ and $\varpi\circ\rho(\sigma)\in\im(\delta^0)$.
+    Since $\varpi$ between cohomology groups is independent of the choice of refinement map, we may choose $\rho:I\times J\to I$ be the projection map and replace $\underline{V}$ with $\underline{W}$.
+    Now denote $\rho(\sigma)=\{\tau_{(j_0,j_1)}\}$ where $\tau_{(j_0,j_1)}=\sigma_{(\rho(j_0),\rho(j_1))}|_{V_{j_0j_1}}$.
+    Then there exists $(\tau_j)\in C^0(\underline{V},\mathcal{F})$ satisfying $(\tau_{(j_0,j_1)})=\delta(\tau_j)=(\tau_{j_1}-\tau_{j_0})$.
+    If $\rho(j_0)=\rho(j_1)$, then $(\tau_{j_1}-\tau_{j_0})|_{V_{j_0j_1}}=\tau_{(j_0,j_1)}=\sigma_{(\rho(j_0),\rho(j_1))}=0$.
+    So we can glue $\{\tau_j\}_{\rho(j)=i}$ to get a section $\sigma_i\in\mathcal{F}(U_i)$ since $U_i=\bigcup_{\rho(j)=i}V_j$.
+    Since $U_{i_0i_1}=\bigcup_{\rho(j_0)=i_0,\rho(j_1)=j_1}V_{j_0j_1}$ and 
+    \[(\sigma_{\rho(j_1)}-\sigma_{\rho(j_0)})|_{V_{j_0j_1}}=(\tau_{j_1}-\tau_{j_0})|_{V_{j_0j_1}}=\tau_{(j_0,j_1)}=\sigma_{(\rho(j_0),\rho(j_1))}|_{V_{j_0j_1}}\]
+    we obtain $\delta(\sigma_i)=((\sigma_{i_1}-\sigma_{i_0})|_{U_{i_0i_1}})=(\sigma_{(i_0,i_1)})$, that is, $\sigma+\im(\delta^0)=0$.
+    Hence the kernel is zero, the natural map is injective.
+\end{proof}
+
 Next we discuss the exact sequence of cohomology groups.
 
-\begin{thm}
+\begin{thm}\label{exact cohomology groups}
     Assume the sequence of sheaves on paracompact Hausdorff space $X$
     \[0\to\mathcal{E}\xrightarrow{f}\mathcal{F}\xrightarrow{g}\mathcal{G}\to 0\]
     is exact, then the sequence of cohomology groups
@@ -434,3 +480,375 @@ Finally we give a brief discussion on fine sheaves.
     Hence $(\sigma_{(i_0,\cdots,i_n)})\in\im\delta^{n-1}$, and therefore $H^n(\{U_\beta\},\mathcal{F})=0$.
     Thus $H^n(X,\mathcal{F})=0$ for $n>0$.
 \end{proof}
+
+\section{Vector Bundles}
+
+We define complex analytic and differentiable vector bundles.
+Let $M$ be a complex or differentiable manifold.
+
+\begin{defn}
+    A \emph{complex analytic} (resp.\ \emph{differentiable}) \emph{vector bundle} over $M$ is a complex (resp.\ differentiable) manifold $F$ together with a holomorphic (resp.\ differentiable) map $\pi:F\to M$ onto $M$ such that, for a sufficiently fine locally finite open cover $\underline{U}=\{U_j\}$ of $M$:
+    \begin{enumerate}[(1)]
+        \item There is a complex analytic (resp.\ differentiable) equivalence $f_j$ from $\pi^{-1}(U_j)$ to $U_j\times\mathbb{C}^n$ (resp.\ $U_j\times\mathbb{R}^n$) making the following diagram commute
+        \[\begin{tikzcd}
+            \pi^{-1}(U_j) \ar[d,"\pi"]\ar[r,"f_j"] & U_j\times\mathbb{C}^n \ar[d,"\pi_j"]\\
+            U_j \ar[r,"\mathrm{id}"] & U_j
+        \end{tikzcd}\]
+        where $\pi_j(z_j,\zeta)=z_j$.
+        For differentiable vector bundle we have similar diagram.
+        \item Each transition function $f_{jk}=f_j\circ f_k^{-1}$ is holomorphic (resp.\ differentiable), and its restriction on each $\pi^{-1}(z)$ for $z\in U_j\cap U_k$ is a linear transformation, that is, a holomorphic matrix-valued function.
+    \end{enumerate}
+    We call each $\pi^{-1}(z)$ a \emph{fiber}, and the number $n$ the \emph{rank} of the bundle.
+    The cover $\underline{U}$ is called a \emph{trivializing cover}.
+\end{defn}
+
+\begin{rem}
+    A vector bundle is completely determined by the transition functions.
+    That is, given a locally finite cover $\{U_j\}$ of $M$ and maps $f_{ij}:U_i\cap U_j\to\mathrm{GL}_n(\mathbb{C})$ (resp.\ $f_{ij}:U_i\cap U_j\to\mathrm{GL}_n(\mathbb{R})$) satisfying the following equalities
+    \begin{equation}
+        \begin{gathered}
+            f_{ij}\cdot f_{ji}=I \\
+            f_{ij}\cdot f_{jk}\cdot f_{ki}=I
+        \end{gathered}\label{transition functions}
+    \end{equation}
+    for indices $i,j,k$, then there exists a unique complex analytic (resp.\ differentiable) vector bundle on $M$.
+    (cf.\ \cite[p.\ 66]{G-H})
+\end{rem}
+
+\begin{defn}
+    We say that $F$ and $F'$ are holomorphically (resp.\ differentiably) equivalent if there is a biholomorphic (resp.\ bidifferentiable) map $\varphi:F'\to F$ such that
+    \begin{enumerate}[(1)]
+        \item The diagram
+        \[\begin{tikzcd}
+            F\ar[rr,"\varphi"]\ar[dr,"\pi"'] & & F'\ar[dl,"\pi'"] \\
+            & M &
+        \end{tikzcd}\]
+        is commute.
+        \item On each fiber $\varphi$ is a linear transformation, that is, if $\{U_j\}$ is a trivializing cover, then there is a holomorphic (resp.\ differentiable) matrix-valued function $h_j$ on each $U_j$ such that $f_j'\circ\varphi\circ f_j^{-1}=h_j$.
+    \end{enumerate}
+\end{defn}
+
+We list here some methods to construct new bundles from old bundles.
+Let $F,G$ be complex analytic or differentiable vector bundles of rank $n,m$ respectively, and $\{U_j\}$ a trivializing cover with $F=\{f_{ij}\},G=\{g_{ij}\}$.
+We define the following new objects:
+\begin{enumerate}[(1)]
+    \item \emph{Whitney Sum} $F\oplus G$:
+    This is a bundle of rank $n+m$ defined by transition functions
+    \[h_{ij}=\begin{bmatrix}
+        f_{ij} & 0 \\
+        0 & g_{ij}
+    \end{bmatrix}\]
+    \item \emph{Tensor Product} $F\otimes G$:
+    This is a bundle of rank $nm$ defined by transition functions $\{f_{ij}\otimes g_{ij}\}$.
+    Recall the \emph{Kronecker product} of two matrices $A=[a_{ij}]_{1\leq i,j\leq n}$ and $B$ is a block matrix
+    \[A\otimes B=\begin{bmatrix}
+        a_{11}B & a_{12}B & \cdots & a_{1n}B\\
+        a_{21}B & a_{22}B & \cdots & a_{2n}B\\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{n1}B & a_{n2}B & \cdots & a_{nn}B
+    \end{bmatrix}\]
+    \item \emph{Dual} bundle $F^*$ of $F$:
+    This is a bundle of rank $n$ defined by transition functions $f_{ij}^*=(f_{ij}^{-1})^\top=f_{ji}^\top$,
+    the transpose inverse of $f_{ij}$.
+    \item \emph{Complex Conjugate} $\overline{F}$ of $F$:
+    This is a bundle of rank $n$ defined by transition functions $\overline{f_{ij}}$.
+\end{enumerate}
+
+We now define subbundles and quotient bundles.
+Suppose by a suitable choice of trivializing cover and coordinates, the transition functions $\{f_{ij}\}$ can be written as follows:
+\[f_{ij}=\begin{bmatrix}
+    A_{ij} & B_{ij}\\
+    0 & C_{ij}
+\end{bmatrix}\]
+where $A_{ij}$ are $m\times m\ (m<n)$ matrices.
+Then by the multiplication of block matrices, $\{A_{ij}\}$ satisfy the identity~\eqref{transition functions}, hence it determines a bundle $F'$.
+We call $F'$ a \emph{subbundle} of $F$.
+Similarly $\{C_{ij}\}$ satisfy the identity~\eqref{transition functions}, we call it determines the \emph{quotient bundle} $F''=F/F'$.
+
+Next we discuss line bundles and Chern class.
+\begin{defn}
+    A \emph{line bundle} on complex manifold $M$ is a complex analytic bundle $L$ of rank $1$.
+\end{defn}
+
+\begin{prop}\label{picard}
+    The tensor product is well-defined on the equivalent classes of line bundles on $M$, and makes it into a group.
+\end{prop}
+\begin{proof}
+    Notice that dual gives the inverse of (the equivalent class of) a bundle, and everything is clear.
+\end{proof}
+
+\begin{defn}
+    The group in Proposition~\ref{picard}~is called the \emph{Picard group} of $M$, denoted by $\Pic(M)$.
+\end{defn}
+
+\begin{prop}
+    On a complex manifold $M$ we have $\Pic(M)\cong H^1(M,\mathcal{O}^*)$.
+\end{prop}
+\begin{proof}
+    Let $\{l_{ij}\}_{\underline{U}}$ be a line bundle.
+    Consider $l_{ij}$ as an element of $\mathcal{O}^*(U_i\cap U_j)$.
+    On $U_i\cap U_j\cap U_k$, by~\eqref{transition functions}~we have
+    \begin{gather*}
+        l_{ij}\cdot l_{jk}\cdot l_{ki}=1\\
+        \iff l_{jk}\cdot l_{ik}^{-1}\cdot l_{ij}=1
+    \end{gather*}
+    Hence $(l_{ij})\in\ker\delta^1$.
+    If two line bundles $(l_{ij})$ and $(l'_{ij})$ are equivalent, there are nonvanishing functions $h_j$ on $U_j$ such that
+    \[(l_j')^{-1}\cdot h_j\cdot l_j=(l_k')^{-1}\cdot h_k\cdot l_k\]
+    That is $l_{jk}=l'_{jk}\cdot h_k\cdot h_j^{-1}$, then $(l_{jk})$ and $(l'_{jk})$ are cohomologous.
+    Hence an equivalent class defines an element in $H^1(\underline{{U}},\mathcal{O}^*)$, and by Proposition~\ref{H^1(U) to H^1(X)}, it actually defines an element in $H^1(M,\mathcal{O}^*)$.
+    It is clear that this correspondence is a homomorphism.
+    Conversely, it is easy to construct a line bundle from an element of $H^1(M,\mathcal{O}^*)$.
+    This proves our proposition.
+\end{proof}
+
+\begin{rem}
+    Same argument shows the group of differentiable equivalent classes of differentiable line bundles is isomorphic to $H^1(M,\mathcal{D}^*)$.
+\end{rem}
+
+We now construct Chern class, an important invariant of line bundles.
+We have the exponential sequence for $\mathcal{O}$ and $\mathcal{D}$:
+\[\begin{tikzcd}
+    0 \ar[r] & \mathbb{Z} \ar[d, "\mathrm{id}"] \ar[r] & \mathcal{O} \ar[d, hook] \ar[r, "\exp"] & \mathcal{O}^* \ar[d, hook] \ar[r] & 0\\
+    0 \ar[r] & \mathbb{Z} \ar[r] & \mathcal{D} \ar[r, "\exp"] & \mathcal{D}^* \ar[r] & 0
+\end{tikzcd}\]
+with exact rows.
+This yields a commutative diagram of cohomology groups with exact rows
+\[\begin{tikzcd}
+    H^1(M,\mathcal{O}) \ar[r] \ar[d] & H^1(M,\mathcal{O}^*) \ar[r, "\delta^*"] \ar[d, "i"] & H^2(M,\mathbb{Z}) \ar[r] \ar[d] & H^2(M,\mathcal{O}) \ar[d]\\
+    H^1(M,\mathcal{D}) \ar[r] & H^1(M,\mathcal{D}^*) \ar[r, "\delta^*"] & H^2(M,\mathbb{Z}) \ar[r] & H^2(M,\mathcal{D})
+\end{tikzcd}\]
+
+\begin{defn}
+    The (first) \emph{Chern class} $c$ is defined as $\delta^*:\Pic(M)\to H^2(M,\mathbb{Z})$.
+\end{defn}
+
+\begin{prop}
+    The Chern class $c(L)$ of a complex analytic line bundle $L$ represents the differentiable equivalence class of $L$.
+\end{prop}
+\begin{proof}
+    Since $\mathcal{D}$ is a fine sheaf, $\mathcal{D}$ is acyclic.
+    Hence we have $0\to H^1(M,\mathcal{D}^*)\xrightarrow{\delta^*} H^2(M,\mathbb{Z})\to 0$, that is, $H^1(M,\mathcal{D}^*)\cong H^2(M,\mathbb{Z})$, and the previous one is the group of differentiable equivalent classes of differentiable line bundles on $M$.
+\end{proof}
+
+Let us give an explicit description of $c(L)$.
+If $L=\{l_{ij}\}$, $l_{ij}\cdot l_{jk}\cdot l_{ki}=1$, and
+\[\log{l_{ij}}+\log{l_{jk}}+\log{l_{ki}}=2\pi\sqrt{-1}c_{ijk}\]
+Then $c(L)=(c_{ijk})\in H^2(M,\mathbb{Z})$.
+It easy to see different analytic branches gives cohomologous $(c_{ijk})$.
+
+We now discuss sections of vector bundles.
+\begin{defn}
+    A holomorphic (resp.\ differentiable) \emph{section} of $F$ over $U\subset M$ is a holomorphic (resp.\ differentiable) map $\varphi:U\to F$ such that $\pi\circ\varphi=\mathrm{id}_U$.
+    Denote the $\mathbb{C}$- (resp.\ $\mathbb{R}$-) vector space of sections by $\Gamma(U,F)$.
+
+    We define a presheaf $\mathcal{O}(F)$ by setting $\mathcal{O}(F)(U)=\Gamma(U,F)$, and it is easy to check this is a sheaf, called the \emph{sheaf of holomorphic sections of} $F$.
+    Similarly we have a \emph{sheaf of differentiable sections of} $F$ denoted by $\mathcal{D}(F)$.
+\end{defn}
+
+Locally $\mathcal{O}(F)|_U=\mathcal{O}|_U\oplus\cdots\oplus\mathcal{O}|_U$ ($n$ times) on a trivializing open set $U$.
+
+We give the definition of various tangent bundles and vector fields.
+\footnote{
+    The reader can notice that Morrow and Kodaira use subscript to denote the indices of components in Chapter 1.
+    However, from now on they use superscript to denote the indices of components, we shall keep the same notation with the book.
+}
+\begin{defn}
+    Let $(U_\alpha,z_\alpha)_{\alpha\in A}$ be a locally finite atlas of $M$, the \emph{holomorphic tangent bundle} $T(M)$ is defined by Jacobi matrices of $z_\alpha\circ(z_\beta)^{-1}$.
+    The conjugate $\overline{T(M)}$ of $T(M)$ is called \emph{conjugate tangent bundle} of $M$, and the sum $\mathcal{T}(M):=T(M)\oplus\overline{T(M)}$ is called \emph{complexified tangent bundle} of $M$.
+\end{defn}
+
+We note that on a chart $(U,\zeta)$, the fiber on a point $z$ is isomorphic to $\langle\partial/\partial{\zeta^1},\cdots,\partial/\partial{\zeta^n}\rangle_\mathbb{C}$.
+If $(V,\xi)$ is another chart, chain rule shows the transition function is exactly the Jacobi matrix of $\xi\circ\zeta^{-1}$.
+Hence we have a well-defined tangent space.
+\begin{defn}
+    The \emph{tangent space} at point $z$ is given by $\langle\partial/\partial{\zeta_1},\cdots,\partial/\partial{\zeta_n}\rangle_\mathbb{C}$ for a chart $(U,\zeta)$, denoted by $T_z(M)$.
+\end{defn}
+
+\begin{rem}
+    If
+    \[\mathcal{T}_\mathbb{R}(M):=\coprod_{z\in M}\mathcal{T}_{\mathbb{R},x}(M)\]
+    is the real tangent bundle of $M$ as a differentiable manifold, then $\mathcal{T}(M)=\mathcal{T}_\mathbb{R}(M)\otimes\mathbb{C}$, where $\mathbb{C}$ is the trivial complex analytic line bundle on $M$ considered as a differentiable bundle.
+\end{rem}
+
+\begin{defn}
+    A \emph{holomorphic vector field} is a holomorphic section of $T(M)$.
+    The sheaf of holomorphic vector fields is denoted by $\Theta$. 
+\end{defn}
+
+By linear algebra, if a matrix $A$ corresponds to a linear map $\sigma:V\to W$ on suitable basis, then the inverse transpose $A^*$ of $A$ corresponds to the linear map $(\sigma^\vee)^{-1}:V^\vee\to W^\vee$.
+Hence the dual bundle's fiber is dual to the original bundle.
+\begin{sym}
+    We use $\d{z}_\alpha^i\ (i=1,\cdots,n)$ to denote the dual basis of $\partial/\partial{z_\alpha^i}$
+\end{sym}
+
+We now give a brief treatment of differential forms.
+\begin{defn}
+    A \emph{differential form} of type $(p,q)$ (or $(p,q)$-form) on an open set $W$ is a differentiable section of $\left(\bigoplus_{i=1}^pT^*(M)\right)\oplus\left(\bigoplus_{j=1}^q\overline{T^*(M)}\right)$ over $W$ such that the fiber coordinate is skew-symmetric respect to indices.
+    In general, we denote a $(p,q)$-form as
+    \[\varphi(z)=\frac{1}{p!q!}\sum_{\stackrel{i_1,\cdots,i_p}{j_1,\cdots,j_q}}\varphi_{i_1\cdots i_pj_1\cdots j_q}(z)\d{z}^{i_1}\wedge\cdots\wedge\d{z}^{i_p}\wedge\d{z}^{\overline{j_1}}\wedge\cdots\wedge\d{z}^{\overline{j_q}}\]
+    on a trivializing open set $U$, where $\d{z}^{\overline{j}}=\overline{\d{z}^j}$, and $\wedge$ is the wedge product.
+\end{defn}
+
+Similarly, we can define differential form on real differentiable manifolds.
+\begin{defn}
+    A \emph{differential form} of degree $p$ is a differentiable section of $\bigoplus_{i=1}^p\mathcal{T}(M)$ whose fiber coordinate is skew-symmetric.
+    In general, a differential form of degree $p$ has form
+    \[\varphi(x)=\sum\varphi_{i_1\cdots i_p}\d{x}^{i_0}\wedge\cdots\wedge\d{x}^{i_p}\]
+    on a trivializing open set $U$.
+\end{defn}
+
+We define wedge product and exterior differential of differential forms.
+
+\begin{defn}
+    If
+    \begin{gather*}
+        \varphi=\frac{1}{p!}\sum\varphi_{i_1\cdots i_p}\d{x}^{i_1}\wedge\cdots\wedge\d{x}^{i_p}\\
+        \psi=\frac{1}{q!}\sum\psi_{j_1\cdots j_q}\d{x}^{j_1}\wedge\cdots\wedge\d{x}^{j_q}\\
+    \end{gather*}
+    Then the \emph{wedge product} of $\varphi$ and $\psi$ is defined by
+    \[\varphi\wedge\psi:=\frac{1}{p!q!}\sum\varphi_{i_1\cdots i_p}\psi_{j_1\cdots j_q}\d{x}^{i_1}\wedge\cdots\wedge\d{x}^{i_p}\wedge\d{x}^{j_1}\wedge\cdots\wedge\d{x}^{j_q}\]
+    and the \emph{exterior differential} of $\varphi$ is defined by
+    \begin{align*}
+        \d{\varphi}&:=\frac{1}{p!}\sum\frac{\partial\varphi_{i_1\cdots i_p}}{\partial{x}^i}\d{x}^i\wedge\d{x}^{i_1}\wedge\cdots\wedge\d{x}^{i_p}\\
+        &=\frac{1}{(p+1)!}\sum\phi_{i_0i_1\cdots i_p}\d{x}^{i_0}\wedge\d{x}^{i_1}\wedge\cdots\wedge\d{x}^{i_p}
+    \end{align*}
+    where
+    \[\phi_{i_0i_1\cdots i_p}=\sum_{j=0}^p(-1)^j\frac{\partial\varphi_{i_0\cdots\widehat{i_j}\cdots i_p}}{\partial{x}^j}\]
+\end{defn}
+
+One can check that wedge product and exterior differential are well-defined, that is, do not depend on the choice of coordinate chart.
+See~\cite[Section~9.3]{Tu11}.
+
+We list two easy properties of exterior differential here.
+
+\begin{prop}
+    If $\varphi$ is a $p$-form and $\psi$ is a $q$-form, then
+    \begin{enumerate}[\rm(1)]
+        \item $\d{\d{\varphi}}=0$;
+        \item $\d{(\varphi\wedge\psi)}=\d{\varphi}\wedge\psi+(-1)^p\varphi\wedge\d{\psi}$.
+    \end{enumerate}
+\end{prop}
+
+\begin{sym}
+    We use $A^p$ to denote the sheaf of differential $p$-forms on manifold $M$.
+\end{sym}
+
+\begin{thm}[Poincar\'{e}'s lemma]
+    Suppose a $p$-form $\varphi$, $p\geq 1$, satisfies $\d\varphi=0$ on a star-shaped domain $W$ of $0$, then there exists a $(p-1)$-form $\psi$ on $W$ such that $\d\psi=\varphi$.
+\end{thm}
+\begin{proof}
+    We construct a chain homotopy between $\mathrm{id}$ and $0$ on $A^\bullet$ of $W$.
+    Denote $I^p=(i_1,\cdots,i_p)$ and $I^{p+1}=(i_0,i_1,\cdots,i_p)$ for short.
+    Let
+    \[\varphi=\frac{1}{p!}\sum_{I^p}\varphi_{I^p}\d{x}^{I^p}\]
+    Then $h:A^p\to A^{p-1}$ is defined by
+    \[h(\varphi)(x):=\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p(-1)^{j-1}\left(\int_0^1t^{p-1}\varphi_{I^p}(tx)\d{t}\right)x^{i_j}\d{x}^{I^p\backslash(i_j)}\]
+    Where $I^p\backslash(i_j)=(i_1,\cdots,\widehat{i_j},\cdots,i_p)$.
+    Since $W$ is star-shaped, $h$ is well-defined.
+    Straightforward computation shows
+    \begin{align*}
+        \d{h(\varphi)}(x)=&\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p(-1)^{j-1}\sum_{k=1}^n\frac{\partial}{\partial{x}^k}\left(\int_0^1\varphi_{i^p}(tx)t^{p-1}\d{t}\right)x^{i_j}\d{x}^k\wedge\d{x}^{I^p\backslash(i_j)}\\
+        =&\frac{1}{p!}\sum_{I^p}p\left(\int_0^1\varphi_{I^p}(tx)t^{p-1}\d{t}\right)\d{x}^{I^p}\\
+        &+\frac{1}{p!}\sum_{I^p}\sum_{j=1}^p\sum_{k=1}^n(-1)^{j-1}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^{p-1\d{t}}\right)x^{i_j}\d{x}^k\wedge\d{x}^{I^p\backslash(i_j)}
+    \end{align*}
+    and
+    \begin{align*}
+        h(\d\varphi)(x)=&h\left(\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}\d{x}^k\wedge\d{x}^{I^p}\right)\\
+        =&\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\right)x^k\d{x}^{I^p}\\
+        &+\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\sum_{j=2}^{p+1}(-1)^{j-1}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\d{t}\right)x^{i_{j-1}}\d{x}^k\wedge\d{x}^{I^p\backslash(i_{j-1})}\\
+        =&\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\right)x^k\d{x}^{I^p}\\
+        &+\frac{1}{p!}\sum_{I^p}\sum_{k=1}^n\sum_{j=1}^{p}(-1)^{j}\left(\int_0^1\frac{\partial{\varphi_{I^p}}}{\partial{x}^k}(tx)t^p\d{t}\right)x^{i_{j}}\d{x}^k\wedge\d{x}^{I^p\backslash(i_{j})}
+    \end{align*}
+    Adding $\d{h(\varphi)}$ and $h(\d{\varphi})$, the triple sums cancel, and we obtain
+    \begin{align*}
+        \d{h(\varphi)}(x)+h(\d{\varphi})(x)=&\frac{1}{p!}\sum_{I^p}\left(\int_0^1\left(pt^{p-1}\varphi_{I^p}(tx)+t^p\sum_{k=1}^nx^k\frac{\partial\varphi_{I^p}}{\partial{x}^k}(tx)\right)\d{t}\right)\d{x}^{I^p}\\
+        =&\frac{1}{p!}\left(\sum_{I^p}\int_0^1\frac{\d{}}{\d{t}}\left(t^p\varphi_{I^p}(tx)\right)\d{t}\right)\d{x}^{I^p}\\
+        =&\frac{1}{p!}\sum_{I^p}\varphi_{I^p}(x)\d{x}^{I^p}\\
+        =&\varphi(x)
+    \end{align*}
+    Hence on $W$ $\mathrm{id}$ is chain homotopic to $0$, that is, for any $\varphi\in A^p$ with $\d\varphi=0$ there is a $\psi\in A^{p-1}$ such that $\d{\psi}=\varphi$ for $p\geq 1$. 
+\end{proof}
+
+\begin{defn}
+    By a \emph{fine resolution} of sheaf $\mathcal{F}$ we mean an exact sequence of sheaves
+    \[0\to\mathcal{F}\to\mathcal{A}^0\to\mathcal{A}^1\to\cdots\]
+    such that each $\mathcal{A}^p$ is fine.
+\end{defn}
+
+\begin{prop}\label{fine resolution of C}
+    The sequence
+    \[0\to\mathbb{C}\to A^0\xrightarrow{\d^0{}} A^1\xrightarrow{\d^1{}} A^2\xrightarrow{\d^2{}}\cdots\]
+    gives a fine resolution of $\mathbb{C}$.
+\end{prop}
+\begin{proof}
+    First we notice given an open cover $\underline{U}$, each $A^p$ admits a partition of unity subordinate to $\underline{U}$, hence $A^p$ is fine.
+    Next we notice Poincar\'{e}'s lemma shows $\im{\d^{p-1}{}}=\ker{\d^p{}}$ on each stalk, hence the sequence is exact.
+\end{proof}
+
+Finally we prove the important de Rham's theorem.
+In fact, we have an enhanced conclusion.
+\begin{thm}\label{fine de rham}
+    Let
+    \[0\to\mathcal{F}\to\mathcal{A}^0\xrightarrow{h}\mathcal{A}^1\xrightarrow{h}\mathcal{A}^2\xrightarrow{h}\cdots\]
+    be a fine resolution of sheaf $\mathcal{F}$, then we have $hH^0(X,\mathcal{A}^{q-1})\subset H^0(X,h\mathcal{A}^{q-1})$, and
+    \[H^q(X,\mathcal{F})\cong\frac{H^0(X,h\mathcal{A}^{q-1})}{hH^0(X,\mathcal{A}^{q-1})}\]
+    for $q\geq 1$.
+\end{thm}
+\begin{proof}
+    We use Theorem~\ref{exact cohomology groups}~repeatedly.
+    Decompose the resolution into short exact sequence, we have for $p>0$
+    \[0\to h\mathcal{A}^{p-1}\to\mathcal{A}^p\to h\mathcal{A}^p\to 0\]
+    is exact.
+    Then we have the long exact sequence as in Theorem~\ref{coho short exact}.
+    Since $\mathcal{A}^p$ is fine, $H^q(\mathcal{A}^p)=0$ for any $q>0$, we have
+    \begin{equation}
+        H^q(X,h\mathcal{A}^p)\cong H^{q+1}(X,h\mathcal{A}^{p-1})\quad \forall p,q>0\label{de rham 1}
+    \end{equation}
+    For $q=0$, we have exact sequence
+    \[0\to H^0(X,h\mathcal{A}^{p-1})\to H^0(X,\mathcal{A}^p)\to H^0(X,h\mathcal{A}^p)\to H^1(X,h\mathcal{A}^{p-1})\to 0\]
+    Hence we have
+    \begin{equation}
+        H^1(X,h\mathcal{A}^{p-1})\cong\frac{H^0(X,h\mathcal{A}^p)}{hH^0(X,\mathcal{A}^p)}\label{de rham 2}
+    \end{equation}
+    For $p=0$, we have the short exact sequence
+    \[0\to\mathcal{F}\to\mathcal{A}^0\to h\mathcal{A}^0\to 0\]
+    Then we have the long exact sequence as in Theorem~\ref{coho short exact}.
+    Since $\mathcal{A}^0$ is fine, $H^q(\mathcal{A}^0)=0$ for any $q>0$, then we have an exact sequence
+    \[0\to H^0(X,\mathcal{F})\to H^0(X,\mathcal{A}^0)\to H^0(X,h\mathcal{A}^0)\to H^1(X,\mathcal{F})\to 0\]
+    This implies
+    \begin{equation}
+        H^1(X,\mathcal{F})\cong\frac{H^0(X,h\mathcal{A}^0)}{hH^0(X,\mathcal{A}^0)}\label{de rham 3}
+    \end{equation}
+    And for $q>0$ we have
+    \[0\to H^q(X,h\mathcal{A}^0)\to H^{q+1}(X,\mathcal{F})\to 0\]
+    That is, $H^{q+1}(X,\mathcal{F})\cong H^q(X,h\mathcal{A}^0)$.
+    Using~\eqref{de rham 1}~and~\eqref{de rham 2}, we have
+    \begin{equation}
+        \begin{aligned}
+            H^q(X,\mathcal{F})&\cong H^{q-1}(X,h\mathcal{A}^0)\\
+            &\cong\cdots\\
+            &\cong H^1(X,h\mathcal{A}^{q-2})\\
+            &\cong\frac{H^0(X,h\mathcal{A}^{q-1})}{hH^0(X,\mathcal{A}^{q-1})}
+        \end{aligned}\label{de rham 4}
+    \end{equation}
+    Combining~\eqref{de rham 3}~and~\eqref{de rham 4}~we reach the conclusion.
+\end{proof}
+
+\begin{cor}[de Rham's Theorem]\label{de rham}
+    We have the isomorphism
+    \[H^q(X,\mathbb{C})\cong\frac{H^0(X,\d{A^{q-1}})}{\d{H^0(X,A^{q-1})}}\quad\forall q>0\]
+\end{cor}
+\begin{proof}
+    Combine Theorem~\ref{fine de rham}~and Proposition~\ref{fine resolution of C}.
+\end{proof}
+
+\begin{rem}
+    Generally speaking, we often define de Rham cohomology group of complex coefficients as the cohomology of the cochain complex
+    \[0\to\mathbb{C}(X)\to A^0(M)\xrightarrow{\d{}}A^1(X)\xrightarrow{\d{}}A^2(X)\xrightarrow{\d{}}\cdots\]
+    in algebraic topology.
+    Denote the $q$th de Rham cohomology group by $H^q_{\mathrm{DR}}(X,\mathbb{C})$, then traditionally de Rham's theorem reads $\check{H}^q(X,\mathbb{C})\cong H^q_{\mathrm{DR}}(X,\mathbb{C})$.
+    This is equivalent to the form we state in Corollary~\ref{de rham}.
+\end{rem}
+
+\section{Dolbeault's Lemmas}
