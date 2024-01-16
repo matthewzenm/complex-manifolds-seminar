@@ -349,7 +349,7 @@ It's clear that $\delta^{q+1}\circ\delta^q=0$, this makes $C(\underline{U},\math
 Thus we define
 
 \begin{defn}
-    The \emph{\v{C}ech cohomology group} related to $\underline{U}$ is the cohomology $\mathbb{R}$-module of \v{C}ech complex $C(\underline{U},\mathcal{F})$, denoted by $H^\bullet(\underline{U},\mathcal{F})$.
+    The \emph{\v{C}ech cohomology group} related to $\underline{U}$ is the cohomology $R$-module of \v{C}ech complex $C(\underline{U},\mathcal{F})$, denoted by $H^\bullet(\underline{U},\mathcal{F})$.
 \end{defn}
 
 The cohomology group is an $R$-module, but we still use the traditional name group.
@@ -425,19 +425,40 @@ Next we discuss the exact sequence of cohomology groups.
     \end{tikzcd}\]
     is exact.
 \end{thm}
+
+We decompose the proof into several lemmas.
+
+\begin{lem}
+    Let $\underline{U}$ be a locally finite open cover, there is a well-defined left exact functor from sheaves on $X$ to \v{C}ech complexes $\mathcal{F}\mapsto C(\underline{U},\mathcal{F})$.
+\end{lem}
 \begin{proof}
-    Let $\underline{U}$ be a locally finite open cover.
-    A morphism of sheaves $f:\mathcal{E}\to\mathcal{F}$ gives rise to a cochain map between \v{C}ech complexes $f^\sharp:C(\underline{U},\mathcal{E})\to C(\underline{U},\mathcal{F})$ by sending $\sigma_{(i_0,\cdots,i_n)}$ to $f(\sigma_{(i_0,\cdots,i_n)})$.
-    Clearly this commutes with coboundary operator, and it is easy to see the correspondence is left-exact, i.e.\
-    \[0\to C(\underline{U},\mathcal{E})\xrightarrow{f^\sharp}C(\underline{U},\mathcal{F})\xrightarrow{g^\sharp}C(\underline{U},\mathcal{G})\]
-    is exact.
-    Let the image of $g^\sharp$ be $C_0(\underline{U},\mathcal{G})$, and the cohomology group of this complex be $H^\bullet_0(\underline{U},\mathcal{G})$.
+    Only need to define the map between sets of morphisms.
+    Let $f:\mathcal{E}\to\mathcal{F}$ be a sheaf morphism, define $f^\sharp:C(\underline{U},\mathcal{E})\to C(\underline{U},\mathcal{F})$ by sending $\sigma_{(i_0,\cdots,i_n)}$ to $f(\sigma_{(i_0,\cdots,i_n)})$.
+    Clearly this commutes with coboundary operator, and it is easy to see the correspondence is functorial and left-exact.
+\end{proof}
+
+Let the image of $g^\sharp$ be $C_0(\underline{U},\mathcal{G})$, and the cohomology groups of $C_0(\underline{U},\mathcal{G})$ be $H^\bullet_0(\underline{U},\mathcal{G})$.
+Denote
+\[H^q_0(X,\mathcal{G}):=\varinjlim_{\underline{U}}H^q_0(\underline{U},\mathcal{G})\]
+for $q\in\mathbb{N}$. 
+
+\begin{lem}\label{pre H_0=H}
+    Let $\sigma\in C^q(\underline{U},\mathcal{G})$, then there exists a locally finite refinement $\underline{W}$ of $\underline{U}$ with refinement map $\rho$, such that $\rho(\sigma)\in C^q_0(\underline{W},\mathcal{G})$.
+\end{lem}
+
+\begin{lem}\label{H_0=H}
+    We have $H^q(X,\mathcal{G})\cong H^q_0(X,\mathcal{G})$ for $q\in\mathbb{N}$.
+\end{lem}
+
+\begin{proof}[Proof of Theorem~\ref{exact cohomology groups}]
     By Zig-zag Lemma (Theorem~\ref{zigzag}), we have a long exact sequence of
     \[\cdots\to H^n(\underline{U},\mathcal{E})\to H^n(\underline{U},\mathcal{F})\to H^n_0(\underline{U},\mathcal{G})\to\cdots\]
     By Proposition~\ref{colim exact}, direct limit preserves exactness, so taking direct limit, we obtain a long exact sequence
     \[\cdots\to H^n(X,\mathcal{E})\to H^n(X,\mathcal{F})\to H^n_0(X,\mathcal{G})\to\cdots\]
-    By~\cite[25.\ Proposition 7]{FAC}, $H^n_0(X,\mathcal{G})\xrightarrow{\sim}H^n(X,\mathcal{G})$ on a paracompact Hausdorff space, hence we obtain the required long exact sequence.
+    By~\ref{H_0=H}, $H^n_0(X,\mathcal{G})\cong H^n(X,\mathcal{G})$, hence we obtain the required long exact sequence.
 \end{proof}
+
+This proof is due to~\cite{FAC}.
 
 \begin{thm}
     Let
@@ -456,7 +477,72 @@ Next we discuss the exact sequence of cohomology groups.
     Use Theorem~\ref{natural}.
 \end{proof}
 
-Finally we give a brief discussion on fine sheaves.
+Finally we give a brief discussion on resolutions.
+
+\begin{defn}
+    By a \emph{resolution} of sheaf $\mathcal{F}$ we mean an exact sequence of sheaves
+    \[0\to\mathcal{F}\to\mathcal{F}^0\to\mathcal{F}^1\to\cdots\]
+    If each $\mathcal{F}^i$ has property $P$, then we call the resolution a $P$ resolution.
+\end{defn}
+
+\begin{defn}
+    A sheaf $\mathcal{F}$ is called \emph{acyclic} if $H^q(\mathcal{F})=0$ for $q>0$.
+\end{defn}
+
+\begin{thm}\label{acyclic de rham}
+    Let
+    \[0\to\mathcal{F}\to\mathcal{A}^0\xrightarrow{h}\mathcal{A}^1\xrightarrow{h}\mathcal{A}^2\xrightarrow{h}\cdots\]
+    be an acyclic resolution of sheaf $\mathcal{F}$, then we have $hH^0(X,\mathcal{A}^{q-1})\subset H^0(X,h\mathcal{A}^{q-1})$, and
+    \[H^q(X,\mathcal{F})\cong\frac{H^0(X,h\mathcal{A}^{q-1})}{hH^0(X,\mathcal{A}^{q-1})}\]
+    for $q\geq 1$.
+\end{thm}
+\begin{proof}
+    Since $h^{q-1}H^0(X,\mathcal{A}^{q-1})=\preim(h^{q-1})(X)$, which is naturally embedded into $\im(h^{q-1})(X)=H^0(X,h^{q-1}\mathcal{A}^{q-1})$ by Lemma~\ref{inj of sheafification map}, the inclusion holds.
+    For the rest of the theorem, we use Theorem~\ref{exact cohomology groups}~repeatedly.
+    Decompose the resolution into short exact sequence, we have for $p>0$
+    \[0\to h\mathcal{A}^{p-1}\to\mathcal{A}^p\to h\mathcal{A}^p\to 0\]
+    is exact.
+    Then we have the long exact sequence as in Theorem~\ref{coho short exact}.
+    Since $\mathcal{A}^p$ is acyclic, $H^q(\mathcal{A}^p)=0$ for any $q>0$, we have
+    \begin{equation}
+        H^q(X,h\mathcal{A}^p)\cong H^{q+1}(X,h\mathcal{A}^{p-1})\quad \forall p,q>0\label{de rham 1}
+    \end{equation}
+    For $q=0$, we have exact sequence
+    \[0\to H^0(X,h\mathcal{A}^{p-1})\to H^0(X,\mathcal{A}^p)\to H^0(X,h\mathcal{A}^p)\to H^1(X,h\mathcal{A}^{p-1})\to 0\]
+    Hence we have
+    \begin{equation}
+        H^1(X,h\mathcal{A}^{p-1})\cong\frac{H^0(X,h\mathcal{A}^p)}{hH^0(X,\mathcal{A}^p)}\label{de rham 2}
+    \end{equation}
+    For $p=0$, we have the short exact sequence
+    \[0\to\mathcal{F}\to\mathcal{A}^0\to h\mathcal{A}^0\to 0\]
+    Then we have the long exact sequence as in Theorem~\ref{coho short exact}.
+    Since $\mathcal{A}^0$ is acyclic, $H^q(\mathcal{A}^0)=0$ for any $q>0$, then we have an exact sequence
+    \[0\to H^0(X,\mathcal{F})\to H^0(X,\mathcal{A}^0)\to H^0(X,h\mathcal{A}^0)\to H^1(X,\mathcal{F})\to 0\]
+    This implies
+    \begin{equation}
+        H^1(X,\mathcal{F})\cong\frac{H^0(X,h\mathcal{A}^0)}{hH^0(X,\mathcal{A}^0)}\label{de rham 3}
+    \end{equation}
+    And for $q>0$ we have
+    \[0\to H^q(X,h\mathcal{A}^0)\to H^{q+1}(X,\mathcal{F})\to 0\]
+    That is, $H^{q+1}(X,\mathcal{F})\cong H^q(X,h\mathcal{A}^0)$.
+    Using~\eqref{de rham 1}~and~\eqref{de rham 2}, we have
+    \begin{equation}
+        \begin{aligned}
+            H^q(X,\mathcal{F})&\cong H^{q-1}(X,h\mathcal{A}^0)\\
+            &\cong\cdots\\
+            &\cong H^1(X,h\mathcal{A}^{q-2})\\
+            &\cong\frac{H^0(X,h\mathcal{A}^{q-1})}{hH^0(X,\mathcal{A}^{q-1})}
+        \end{aligned}\label{de rham 4}
+    \end{equation}
+    Combining~\eqref{de rham 3}~and~\eqref{de rham 4}~we reach the conclusion.
+\end{proof}
+
+\begin{rem}
+    Theorem~\ref{acyclic de rham}~gives us a hint that we can define sheaf cohomology by resolutions.
+    In fact, this is the sheaf cohomology theory via \emph{derived functors}, which is introduced by \textsc{Grothendieck}.
+\end{rem}
+
+We define a commonly used acyclic sheaf.
 
 \begin{defn}
     $\mathcal{F}$ is a \emph{fine sheaf}, if for any locally finite open cover $\{U_i\}_{i\in I}$ of $X$, there exists a set $\{h_i\}_{i\in I}$ of morphisms $h_i:\mathcal{F}\to\mathcal{F}$ such that
@@ -506,6 +592,8 @@ Finally we give a brief discussion on fine sheaves.
     Hence $(\sigma_{(i_0,\cdots,i_n)})\in\im\delta^{n-1}$, and therefore $H^n(\{U_\beta\},\mathcal{F})=0$.
     Thus $H^n(X,\mathcal{F})=0$ for $n>0$.
 \end{proof}
+
+In next several sections, we shall give a fine resolution of $\mathbb{C}$ and $\mathcal{O}$ respectively.
 
 \section{Vector Bundles}
 
@@ -756,6 +844,8 @@ We list two easy properties of exterior differential here.
     \end{enumerate}
 \end{prop}
 
+Finally, we give a fine resolution of $\mathbb{C}$.
+
 \begin{sym}
     We use $A^p$ to denote the sheaf of differential $p$-forms on manifold $M$.
 \end{sym}
@@ -796,12 +886,6 @@ We list two easy properties of exterior differential here.
     Hence on $W$ $\mathrm{id}$ is chain homotopic to $0$, that is, for any $\varphi\in A^p$ with $\d\varphi=0$ there is a $\psi\in A^{p-1}$ such that $\d{\psi}=\varphi$ for $p\geq 1$. 
 \end{proof}
 
-\begin{defn}
-    By a \emph{fine resolution} of sheaf $\mathcal{F}$ we mean an exact sequence of sheaves
-    \[0\to\mathcal{F}\to\mathcal{A}^0\to\mathcal{A}^1\to\cdots\]
-    such that each $\mathcal{A}^p$ is fine.
-\end{defn}
-
 \begin{prop}\label{fine resolution of C}
     The sequence
     \[0\to\mathbb{C}\to A^0\xrightarrow{\d^0{}} A^1\xrightarrow{\d^1{}} A^2\xrightarrow{\d^2{}}\cdots\]
@@ -812,62 +896,14 @@ We list two easy properties of exterior differential here.
     Next we notice Poincar\'{e}'s lemma shows $\im{\d^{p-1}{}}=\ker{\d^p{}}$ on each stalk, hence the sequence is exact.
 \end{proof}
 
-Finally we prove the important de Rham's theorem.
-In fact, we have an enhanced conclusion.
-\begin{thm}\label{fine de rham}
-    Let
-    \[0\to\mathcal{F}\to\mathcal{A}^0\xrightarrow{h}\mathcal{A}^1\xrightarrow{h}\mathcal{A}^2\xrightarrow{h}\cdots\]
-    be a fine resolution of sheaf $\mathcal{F}$, then we have $hH^0(X,\mathcal{A}^{q-1})\subset H^0(X,h\mathcal{A}^{q-1})$, and
-    \[H^q(X,\mathcal{F})\cong\frac{H^0(X,h\mathcal{A}^{q-1})}{hH^0(X,\mathcal{A}^{q-1})}\]
-    for $q\geq 1$.
-\end{thm}
-\begin{proof}
-    Since $h^{q-1}H^0(X,\mathcal{A}^{q-1})=\preim(h^{q-1})(X)$, which is naturally embedded into $\im(h^{q-1})(X)=H^0(X,h^{q-1}\mathcal{A}^{q-1})$ by Lemma~\ref{inj of sheafification map}, the inclusion holds.
-    For the rest of the theorem, we use Theorem~\ref{exact cohomology groups}~repeatedly.
-    Decompose the resolution into short exact sequence, we have for $p>0$
-    \[0\to h\mathcal{A}^{p-1}\to\mathcal{A}^p\to h\mathcal{A}^p\to 0\]
-    is exact.
-    Then we have the long exact sequence as in Theorem~\ref{coho short exact}.
-    Since $\mathcal{A}^p$ is fine, $H^q(\mathcal{A}^p)=0$ for any $q>0$, we have
-    \begin{equation}
-        H^q(X,h\mathcal{A}^p)\cong H^{q+1}(X,h\mathcal{A}^{p-1})\quad \forall p,q>0\label{de rham 1}
-    \end{equation}
-    For $q=0$, we have exact sequence
-    \[0\to H^0(X,h\mathcal{A}^{p-1})\to H^0(X,\mathcal{A}^p)\to H^0(X,h\mathcal{A}^p)\to H^1(X,h\mathcal{A}^{p-1})\to 0\]
-    Hence we have
-    \begin{equation}
-        H^1(X,h\mathcal{A}^{p-1})\cong\frac{H^0(X,h\mathcal{A}^p)}{hH^0(X,\mathcal{A}^p)}\label{de rham 2}
-    \end{equation}
-    For $p=0$, we have the short exact sequence
-    \[0\to\mathcal{F}\to\mathcal{A}^0\to h\mathcal{A}^0\to 0\]
-    Then we have the long exact sequence as in Theorem~\ref{coho short exact}.
-    Since $\mathcal{A}^0$ is fine, $H^q(\mathcal{A}^0)=0$ for any $q>0$, then we have an exact sequence
-    \[0\to H^0(X,\mathcal{F})\to H^0(X,\mathcal{A}^0)\to H^0(X,h\mathcal{A}^0)\to H^1(X,\mathcal{F})\to 0\]
-    This implies
-    \begin{equation}
-        H^1(X,\mathcal{F})\cong\frac{H^0(X,h\mathcal{A}^0)}{hH^0(X,\mathcal{A}^0)}\label{de rham 3}
-    \end{equation}
-    And for $q>0$ we have
-    \[0\to H^q(X,h\mathcal{A}^0)\to H^{q+1}(X,\mathcal{F})\to 0\]
-    That is, $H^{q+1}(X,\mathcal{F})\cong H^q(X,h\mathcal{A}^0)$.
-    Using~\eqref{de rham 1}~and~\eqref{de rham 2}, we have
-    \begin{equation}
-        \begin{aligned}
-            H^q(X,\mathcal{F})&\cong H^{q-1}(X,h\mathcal{A}^0)\\
-            &\cong\cdots\\
-            &\cong H^1(X,h\mathcal{A}^{q-2})\\
-            &\cong\frac{H^0(X,h\mathcal{A}^{q-1})}{hH^0(X,\mathcal{A}^{q-1})}
-        \end{aligned}\label{de rham 4}
-    \end{equation}
-    Combining~\eqref{de rham 3}~and~\eqref{de rham 4}~we reach the conclusion.
-\end{proof}
+As a corollary of Theorem~\ref{acyclic de rham}, we obtain the de Rham's theorem.
 
-\begin{cor}[de Rham's Theorem]\label{de rham}
+\begin{thm}[de Rham's Theorem]\label{de rham}
     We have the isomorphism
     \[H^q(X,\mathbb{C})\cong\frac{H^0(X,\d{A^{q-1}})}{\d{H^0(X,A^{q-1})}}\quad\forall q>0\]
-\end{cor}
+\end{thm}
 \begin{proof}
-    Combine Theorem~\ref{fine de rham}~and Proposition~\ref{fine resolution of C}.
+    Combine Theorem~\ref{acyclic de rham}~and Proposition~\ref{fine resolution of C}.
 \end{proof}
 
 \begin{rem}
@@ -875,7 +911,7 @@ In fact, we have an enhanced conclusion.
     \[0\to\mathbb{C}(X)\to A^0(X)\xrightarrow{\d{}}A^1(X)\xrightarrow{\d{}}A^2(X)\xrightarrow{\d{}}\cdots\]
     in algebraic topology.
     Denote the $q$th de Rham cohomology group by $H^q_{\mathrm{DR}}(X,\mathbb{C})$, then traditionally de Rham's theorem reads $\check{H}^q(X,\mathbb{C})\cong H^q_{\mathrm{DR}}(X,\mathbb{C})$.
-    This is equivalent to the form we state in Corollary~\ref{de rham}.
+    This is equivalent to the form we state in Theorem~\ref{de rham}.
 \end{rem}
 
-\section{Dolbeault's Lemmas}
+\section{Dolbeault's Lemma and Fine Resolution of Structure Sheaf}

@@ -36,10 +36,11 @@ We have
     Let $f(z_1,\cdots,z_n)$ be a continuous function on the domain $W\subset\mathbb{C}^n$, if $f$ is holomorphic with respected to each $z_k$ and other $z_i$'s fixed, then $f$ is holomorphic on $W$.
 \end{thm}
 \begin{proof}
-    Let $a\in W$ lie in the polydisc $\overline{P(a,r)}\subset W$, we use Cauchy's integral formula iteratively:
+    Let $a\in W$ lie in the polydisc $\overline{P(a,r)}\subset W$.
+    For $z\in P(a,r)$, we use Cauchy's integral formula iteratively:
     \begin{gather*}
-        f(z_1,z_2,\cdots,z_n)=\frac{1}{2\pi\sqrt{-1}}\int_{|z_1-a_1|=r_1}\frac{f(w_1,z_2,\cdots,z_n)}{w_1-z_1}\d{w_1}\\
-        f(w_1,z_2,\cdots,z_n)=\frac{1}{2\pi\sqrt{-1}}\int_{|z_2-a_2|=r_2}\frac{f(w_1,w_2,\cdots,z_n)}{w_2-z_2}\d{w_2}\\
+        f(z_1,z_2,\cdots,z_n)=\frac{1}{2\pi\sqrt{-1}}\int_{|w_1-a_1|=r_1}\frac{f(w_1,z_2,\cdots,z_n)}{w_1-z_1}\d{w_1}\\
+        f(w_1,z_2,\cdots,z_n)=\frac{1}{2\pi\sqrt{-1}}\int_{|w_2-a_2|=r_2}\frac{f(w_1,w_2,\cdots,z_n)}{w_2-z_2}\d{w_2}\\
         \cdots
     \end{gather*}
     Substituting, we have
@@ -85,7 +86,7 @@ We now introduce the Cauchy--Riemann equations.
 \end{proof}
 
 \begin{prop}[Chain rule]
-    Suppose $f(w_1,\cdots,w_m)$ and $g_k(z),\ k=1,\cdots,m$ are differentiable, and the domain of $f$ contains the range of $g=(g_1,\cdots,g_m)$, then $f\circ g$ is differentiable, and if $w_m=g_m(z)$, then
+    Suppose $f(w_1,\cdots,w_m)$ and $g_k(z),\ k=1,\cdots,m$ are differentiable, and the domain of $f$ contains the range of $g=(g_1,\cdots,g_m)$, then $f\circ g$ is differentiable, and if $w_i=g_i(z)$ for $i=1,\cdots,m$, then
     \begin{gather*}
         \frac{\partial f(g(z)))}{\partial z_k}=\sum_{i=1}^m\left(\frac{\partial f(w)}{\partial w_i}\cdot\frac{\partial w_i}{\partial z_k}+\frac{\partial f(w)}{\partial\overline{w_i}}\cdot\frac{\partial\overline{w_i}}{\partial z_k}\right)\\
         \frac{\partial f(g(z)))}{\partial\overline{z_k}}=\sum_{i=1}^m\left(\frac{\partial f(w)}{\partial w_i}\cdot\frac{\partial w_i}{\partial\overline{z_k}}+\frac{\partial f(w)}{\partial\overline{w_i}}\cdot\frac{\partial\overline{w_i}}{\partial\overline{z_k}}\right)
@@ -190,6 +191,15 @@ And we have
     Since $\det[\partial\overline{f_j(z)}/\partial\overline{z_k}]=\overline{\det[\partial f_j(z)/z_k]}\neq 0$, by linear algebra we have $\partial\varphi_i(w)/\partial\overline{w_j}=0$ for each $i,j$, that is, $\varphi$ is holomorphic.
 \end{proof}
 
+\begin{cor}[Implicit function theorem]
+    Let $f_i$, $i=1,2,\cdots,m$ be holomorphic on $U\subset\mathbb{C}^n$.
+    Let rank of $[\partial f_i/\partial z_j]=r$ at each point $z\in U$ and suppose $\det[\partial f_i/\partial z_j]_{1\leq i,j\leq r}\neq 0$.
+    If $f_i(a)=0$ for $i\leq m$ for some $a\in U$, then in a small neighborhood of $a$, the equations
+    \[f_i(z_1,\cdots,z_r,z_{r+1},\cdots,z_n)=0,\quad 1\leq i\leq r\]
+    have unique holomorphic solutions
+    \[z_i=\varphi_i(z_{r+1},\cdots,z_n),\quad 1\leq i\leq r\]
+\end{cor}
+
 \section{Complex Manifolds}
 
 \begin{defn}
@@ -207,6 +217,23 @@ And we have
 \begin{proof}
     \cite[Theorem~4.77]{LeeTop}.
 \end{proof}
+
+\begin{defn}
+    Let $M$ be a complex manifold.
+    A subset $S\subset M$ is a (complex) \emph{analytic subvariety}, if for each $s\in S$, there is a neighborhood $U$ of $s$ such that $S\cap U=\{p:\ f_i(p)=0,\ i=1,\cdots,m\}$ for holomorphic functions $f_i,\ i=1,\cdots,m$.
+    The analytic subvariety is a \emph{submanifold} if the rank of $[\partial f_i/\partial z_j]$ is independent of $s$.
+\end{defn}
+
+\begin{defn}
+    A \emph{meromorphic function} $f$ on $M$ is a complex-valued function defined outside of some proper subvariety $S$ of $M$, and such that given $q\in M$, there is a neighborhood $U$ of $q$ and $g,h$ holomorphic on $U$ satisfying $f(p)=g(p)/h(p)$ on $U\backslash S$.
+\end{defn}
+
+\begin{eg}
+    \begin{enumerate}
+        \item Any holomorphic map $f:M\to\mathbb{CP}^1=\mathbb{C}\cup\{\infty\}$ is meromorphic.
+        \item In $\mathbb{C}^2$, we have rational functions $f(z_1,z_2)=P(z_1,z_2)/Q(z_1,z_2)$ for $P,Q$ polynomials are meromorphic.
+    \end{enumerate}
+\end{eg}
 
 In the rest of the section, we provide some examples and constructions of complex manifolds.
 
@@ -230,6 +257,7 @@ In projective space, we have the notion of algebraic objects.
     A \emph{projective algebraic variety} $M$ is the common zero locus of a family of homogeneous polynomials, i.e.\ for some homogeneous polynomials $f_1,\cdots,f_m$, 
     \[M:=\{\zeta\in\mathbb{P}^n:\ f_i(\zeta)=0,\ i=1,\cdots,m\}\]
     If the the rank of $[\partial{f_i}/\partial{\zeta_j}]$ is independent from $\zeta$, then $M$ becomes a manifold, called \emph{algebraic manifold}.
+    Alternatively, we can define algebraic manifolds as submanifolds of projective spaces, by \textsc{Chow}'s theorem (cf.\ \cite[Section~3.3]{Griffiths74}),these two definitions of algebraic manifolds are equivalent.
     If $f_d$ is a homogeneous polynomial of degree $d$, then its zero locus $M_d$ is called a \emph{hypersurface} in $\mathbb{P}^n$ of order $d$.
     If for each $\zeta\in M_d$, at least one of $\partial f_d/\partial\zeta_i\neq 0$, then $M_d$ is nonsingular.
 \end{defn}
@@ -295,10 +323,10 @@ Next we consider \emph{quotient spaces}.
 
 \begin{eg}[Hopf manifolds]
     Let $W=\mathbb{C}^n\setminus\{0\}$ and
-    \[G=\{g^m:\ m\in\mathbb{Z},g(w)=\lambda^nw,0<|\lambda|<1\}\]
+    \[G=\{g^m:\ m\in\mathbb{Z},g(w)=\lambda^mw,0<|\lambda|<1\}\]
     It is easy to see $G$ is properly discontinuous and has no fixed points on $W$, so $W/G$ is a complex manifold.
     Moreover, one can show that $W/G$ is diffeomorphic to $\mathbb{S}^1\times\mathbb{S}^{2n-1}$.
-    In fact, using polar coordinate we have $W\cong\mathbb{R}_{>0}\times\mathbb{S}^{2n-1}$, scalar multiplication quotients $\mathbb{R}_{>0}$ gets $\mathbb{S}^1$ and preserves $\mathbb{S}^{2n-1}$, hence $W/G\cong\mathbb{S}^1\times\mathbb{S}^{2n-1}$
+    In fact, using polar coordinate we have $W\cong\mathbb{R}_{>0}\times\mathbb{S}^{2n-1}$, scalar multiplication quotients $\mathbb{R}_{>0}$ gets $\mathbb{S}^1$ and preserves $\mathbb{S}^{2n-1}$, hence $W/G\cong\mathbb{S}^1\times\mathbb{S}^{2n-1}$ as differentiable manifolds.
 \end{eg}
 
 \begin{eg}
